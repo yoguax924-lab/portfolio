@@ -19,8 +19,12 @@ const INTERVAL = 5000;
 const hero = document.querySelector(".hero");
 hero.insertAdjacentHTML("afterbegin", SLIDES.map((s, i) => {
   const bg = s.image ? `url('${s.image}') center/cover` : s.bg;
-  return `<div class="slide${i === 0 ? " active" : ""}" style="background: ${bg};">
-    <p class="slide-caption">${s.caption}</p></div>`;
+  const cls = `slide${i === 0 ? " active" : ""}`;
+  const inner = `<p class="slide-caption">${s.caption}</p>`;
+  // work があれば作品詳細ページへのリンクにする（なければただの表示）
+  return s.work
+    ? `<a href="work.html?id=${s.work}" class="${cls} slide-link" style="background: ${bg};">${inner}</a>`
+    : `<div class="${cls}" style="background: ${bg};">${inner}</div>`;
 }).join(""));
 
 // トップの Works 抜粋：WORKS の先頭から何件表示するか

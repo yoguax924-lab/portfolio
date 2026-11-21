@@ -82,7 +82,37 @@ img { max-width: 100%; display: block; }
 }
 .slide.active { opacity: 1; }
 
-.slide-caption { font-size: 0.8rem; letter-spacing: 0.25em; color: var(--muted); }
+/* 重なっているスライドのうち、表示中の1枚だけをクリックできるようにする */
+.slide { pointer-events: none; }
+.slide.active { pointer-events: auto; }
+.slide-link { cursor: pointer; }
+/* リンク付きスライドのタイトルの後ろに矢印を出す */
+.slide-link .slide-caption::after { content: "  →"; opacity: 0.7; transition: margin 0.3s; }
+.slide-link:hover .slide-caption::after { margin-left: 8px; opacity: 1; }
+
+/* 座布団：画像の上下に黒のグラデーションを重ねて、
+   ヘッダー（上）と作品タイトル・Scroll（下）を読みやすくする。
+   濃さは rgba の最後の数字（0〜1）で調整。大きいほど濃くなります。
+   25% / 60% は、上下それぞれ画面のどこまで暗くするか */
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0) 25%,
+    rgba(0, 0, 0, 0) 60%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.slide-caption {
+  position: relative;       /* 座布団より手前に出す */
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  color: var(--text);       /* 画像の上でも読めるよう白に */
+}
 
 /* ---------- スクロール誘導 ----------
    ヒーロー下部中央に「Scroll」と下向き矢印を表示（矢印が上下にふわっと動く） */
@@ -170,9 +200,7 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   display: flex;
   flex-wrap: wrap;
   gap: 12px 32px;
-  margin-bottom: 80px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px;
 }
 .category-nav a {
   font-size: 0.8rem;
@@ -181,6 +209,36 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   transition: color 0.3s;
 }
 .category-nav a:hover { color: var(--text); }
+
+/* スキルの絞り込みボタン */
+.skill-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 80px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.skill-label { font-size: 0.7rem; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; margin-right: 12px; }
+.skill-nav button,
+.tag-list a {
+  font: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--line);
+  padding: 2px 14px;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s;
+}
+.skill-nav button:hover,
+.tag-list a:hover,
+.skill-nav button.active { color: var(--text); border-color: var(--text); }
+
+/* 絞り込み中に隠す */
+.is-hidden { display: none !important; }
 
 .works-section { margin-bottom: 120px; }
 
@@ -198,12 +256,13 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 @media (min-width: 900px) {
   .works-page { padding-top: 40px; }
   .works-page .page-title { margin-bottom: 24px; }
-  .works-page .category-nav { margin-bottom: 32px; padding-bottom: 16px; }
+  .works-page .category-nav { margin-bottom: 16px; }
+  .works-page .skill-nav { margin-bottom: 32px; padding-bottom: 16px; }
   .works-page #all .section-title { margin-bottom: 20px; }
   .works-page #works-all { row-gap: 32px; }
 
   .works-page #works-all {
-    --fit-offset: 510px;
+    --fit-offset: 560px;
   }
   .works-page #works-all .work-thumb {
     aspect-ratio: auto;
@@ -237,6 +296,64 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   color: var(--muted);
 }
 
+/* 再生前の表示：画像 + 細線の再生ボタン（クリックで動画に切り替わる） */
+.video-facade {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: #111;
+  color: var(--text);
+  cursor: pointer;
+  overflow: hidden;
+}
+.video-facade img,
+.video-facade > div {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;                 /* 少し暗くしてボタンを見やすく */
+  transition: opacity 0.5s, transform 1.2s ease;
+}
+.video-facade:hover img,
+.video-facade:hover > div { opacity: 1; transform: scale(1.02); }
+
+/* 再生ボタン（丸の細線 + 三角） */
+.play-icon {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 72px;                  /* ボタンの大きさ */
+  height: 72px;
+  margin: -42px 0 0 -36px;
+  border: 1px solid var(--text);
+  border-radius: 50%;
+  transition: transform 0.4s, background 0.4s;
+}
+.play-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: -7px 0 0 -4px;
+  border-left: 13px solid var(--text);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+.video-facade:hover .play-icon { transform: scale(1.1); background: rgba(255, 255, 255, 0.12); }
+
+.play-label {
+  position: absolute;
+  top: 50%; left: 0; right: 0;
+  margin-top: 52px;
+  text-align: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+}
+
 /* 時期・クライアント */
 .detail-info {
   display: flex;
@@ -262,12 +379,9 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 
 /* 使用スキルのタグ */
 .tag-list { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; }
-.tag-list li {
-  font-size: 0.8rem;
-  padding: 4px 16px;
-  border: 1px solid var(--line);
-  letter-spacing: 0.15em;
-}
+/* 枠線などは .tag-list a（スキル絞り込みボタンと共通）側で指定 */
+.tag-list li { font-size: 0.8rem; }
+.tag-list a { padding: 4px 16px; display: inline-block; }
 
 /* 前後の作品へのリンク */
 .detail-nav {

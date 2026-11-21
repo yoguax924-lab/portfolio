@@ -28,3 +28,45 @@ document.getElementById("works-categories").innerHTML = categories
       </section>`;
   })
   .join("");
+
+// ==========================================================
+// スキルでの絞り込み
+// 上のスキルをクリックすると、そのスキルを使った作品だけを表示します。
+// （カテゴリ別セクションは非表示。「All」ボタン、または同じスキルをもう一度押すと解除）
+// URLに ?skill=名前 を付けても絞り込めます（詳細ページのスキルタグからのリンク用）
+// ==========================================================
+const skills = [...new Set(WORKS.flatMap((w) => w.skills))];
+
+const skillNav = document.getElementById("skill-nav");
+skillNav.innerHTML =
+  `<span class="skill-label">Skill</span>` +
+  `<button type="button" data-skill="">All</button>` + // 絞り込みを解除するボタン
+  skills.map((s) => `<button type="button" data-skill="${s}">${s}</button>`).join("");
+
+function applySkill(skill) {
+  const list = skill ? WORKS.filter((w) => w.skills.includes(skill)) : WORKS;
+  document.getElementById("works-all").innerHTML = list.map(cardHTML).join("");
+  document.getElementById("all-title").textContent = skill ? `Skill — ${skill}` : "All";
+  // 絞り込み中はカテゴリ別セクションとカテゴリリンクを隠す
+  document.getElementById("works-categories").classList.toggle("is-hidden", !!skill);
+  document.getElementById("category-nav").classList.toggle("is-hidden", !!skill);
+  // 選択中のスキルを目立たせる
+  skillNav.querySelectorAll("button").forEach((b) =>
+    b.classList.toggle("active", b.dataset.skill === (skill || ""))
+  );
+  // URLも更新（リロードしても同じ絞り込みが残る）
+  history.replaceState(null, "", skill ? `?skill=${encodeURIComponent(skill)}` : location.pathname);
+}
+
+let currentSkill = null;
+skillNav.addEventListener("click", (e) => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  const s = b.dataset.skill || null;           // All は空 → null（解除）
+  currentSkill = currentSkill === s ? null : s;  // 同じものを押したら解除
+  applySkill(currentSkill);
+});
+
+// URLに ?skill= があれば最初から絞り込む
+const initial = new URLSearchParams(location.search).get("skill");
+if (initial && skills.includes(initial)) { currentSkill = initial; applySkill(initial); }

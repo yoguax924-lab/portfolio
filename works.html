@@ -28,11 +28,15 @@
          中身は works.js が自動で作ります（ここは触らなくてOK） -->
     <nav class="category-nav" id="category-nav"></nav>
 
+    <!-- ===== スキルで絞り込み =====
+         works-data.js の skills から自動で作られます（クリックで絞り込み、もう一度で解除） -->
+    <nav class="skill-nav" id="skill-nav"></nav>
+
     <!-- ===== 全作品の一覧（2列グリッド） ===== -->
     <!-- PCでは、All の2段目の下端が1画面の下にぴったり収まるよう
          サムネイルの高さを自動調整します（style.css の「Works：1画面に収める」参照） -->
     <section class="works-section" id="all">
-      <h2 class="section-title">All</h2>
+      <h2 class="section-title" id="all-title">All</h2>
       <div class="works-grid" id="works-all"></div>
     </section>
 

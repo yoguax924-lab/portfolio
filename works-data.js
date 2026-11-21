@@ -1,14 +1,16 @@
 // ==========================================================
 // トップページのスライド（ヒーロー）
 //   caption : 左下に出す文字
+//   work    : クリックで飛ぶ作品のID（WORKS の id と同じにする。例 "work-01"）
+//             空 "" にするとリンクなし
 //   image   : 画像のパス（例 "images/slide1.jpg"）。仮のうちは ""
 //   bg      : image が "" のときの仮の背景（グラデーション）
 // スライドを増やすときは { ... }, をコピー。切替間隔は script.js の INTERVAL。
 // ==========================================================
 const SLIDES = [
-  { caption: "Work 01 — 仮タイトル", image: "", bg: "linear-gradient(135deg, #1a1a2e, #0f3460)" },
-  { caption: "Work 02 — 仮タイトル", image: "", bg: "linear-gradient(135deg, #2b1055, #7597de)" },
-  { caption: "Work 03 — 仮タイトル", image: "", bg: "linear-gradient(135deg, #000000, #434343)" },
+  { caption: "Work 01 — 松本城プロジェクションマッピング", work: "work-01", image: "images/slide-01.jpg", bg: "linear-gradient(135deg, #1a1a2e, #0f3460)" },
+  { caption: "Work 02 — mikkae-club party", work: "work-02", image: "images/slide-02.jpg", bg: "linear-gradient(135deg, #2b1055, #7597de)" },
+  { caption: "Work 03 — pass", work: "work-03", image: "images/slide-03.jpg", bg: "linear-gradient(135deg, #000000, #434343)" },
 ];
 
 // ==========================================================
@@ -27,8 +29,12 @@ const SLIDES = [
 //   client      : クライアント（なければ "Personal Work" など）
 //   credits     : クレジット。[ ["役割", "名前"], ... ] の形で並べる
 //   video       : 映像の埋め込みURL。なければ ""（「準備中」の枠が出ます）
-//                 YouTube → "https://www.youtube.com/embed/動画ID"
+//                 YouTube → ブラウザのアドレスバーのURLをそのまま貼ればOK
+//                           例 "https://www.youtube.com/watch?v=動画ID" / "https://youtu.be/動画ID"
 //                 Vimeo   → "https://player.vimeo.com/video/動画ID"
+//   poster      : （任意）動画を再生する前に見せる画像のパス。
+//                 省略すると、YouTubeの自動サムネイルが使われます
+//                 ※ 動画は最初は再生ボタン付きの画像で、クリックすると読み込まれます
 //   photos      : 写真のパス一覧（例 "images/work01-1.jpg"）。
 //                 "" のままだと仮の枠が表示されます。枚数は自由です
 //   description : 作品の説明。改行したい所に \n を入れると段落が分かれます
@@ -46,14 +52,14 @@ const WORKS = [
     period: "2025.12",
     client: "クライアント名",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Interactive Programming", "Daisuke FunatoE"],
+      ["Interactive Programming", "Yuri Takasu"],
     ],
-    video: "",
+    video: "https://youtu.be/46IEQ6L6b9c",  // ← 仮。YouTubeの普通のURLに差し替え（再生ボタンのデザイン確認用）
     photos: ["", "", ""],
     description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    skills: ["TouchDesigner", "Kinect"],
+    image: "images/slide-01.jpg",
     ph: 1,
   },
   {

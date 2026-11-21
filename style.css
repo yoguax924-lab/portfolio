@@ -153,9 +153,9 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   padding: 120px 40px;
 }
 .section-title {
-  font-size: 0.8rem;
+  font-size: 1.6rem;
   font-weight: 400;
-  letter-spacing: 0.35em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 32px;

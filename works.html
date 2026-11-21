@@ -15,9 +15,13 @@
       <a href="works.html" class="current">Works</a>
       <a href="about.html">About me</a>
     </nav>
+    <!-- ハンバーガーボタン（モバイルのみ表示） -->
+    <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </header>
 
-  <main class="section">
+  <main class="section works-page">
     <h1 class="page-title">WORKS</h1>
 
     <!-- ===== カテゴリへのリンク =====
@@ -25,6 +29,8 @@
     <nav class="category-nav" id="category-nav"></nav>
 
     <!-- ===== 全作品の一覧（2列グリッド） ===== -->
+    <!-- PCでは、All の2段目の下端が1画面の下にぴったり収まるよう
+         サムネイルの高さを自動調整します（style.css の「Works：1画面に収める」参照） -->
     <section class="works-section" id="all">
       <h2 class="section-title">All</h2>
       <div class="works-grid" id="works-all"></div>
@@ -40,5 +46,6 @@
   <!-- 作品データ → 表示処理 の順で読み込む（順番を変えないでください） -->
   <script src="works-data.js"></script>
   <script src="works.js"></script>
+  <script src="menu.js"></script>
 </body>
 </html>

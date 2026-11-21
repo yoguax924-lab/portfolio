@@ -10,31 +10,23 @@
 <body>
 
   <!-- ===== ヘッダー =====
-       名前とメニュー。名前は全ページ共通なので、変えるときは3ファイルとも直してください -->
+       名前とメニュー。名前は全ページ共通なので、変えるときは index / works / about / work の4ファイルとも直してください -->
   <header class="site-header">
     <a href="index.html" class="site-name">YOUR NAME</a>
     <nav class="site-nav">
       <a href="works.html">Works</a>
       <a href="about.html">About me</a>
     </nav>
+    <!-- ハンバーガーボタン（モバイルのみ表示） -->
+    <button class="menu-toggle" aria-label="メニューを開く" aria-expanded="false">
+      <span></span><span></span>
+    </button>
   </header>
 
   <!-- ===== ヒーロー（スライド） =====
-       スライドを増やすときは <div class="slide"> ～ </div> をコピーして追加。
-       最初の1枚だけ class に "active" を付けます。
-       本物の画像にするなら style の background を
-       background: url("images/slide1.jpg") center/cover;
-       に差し替えてください。 -->
+       スライドの中身（画像・キャプション）は works-data.js の SLIDES で編集します。
+       ここには書かなくてOK（script.js が自動で作ります） -->
   <section class="hero">
-    <div class="slide active" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
-      <p class="slide-caption">Work 01 — 仮タイトル</p>
-    </div>
-    <div class="slide" style="background: linear-gradient(135deg, #2b1055, #7597de);">
-      <p class="slide-caption">Work 02 — 仮タイトル</p>
-    </div>
-    <div class="slide" style="background: linear-gradient(135deg, #000000, #434343);">
-      <p class="slide-caption">Work 03 — 仮タイトル</p>
-    </div>
 
     <!-- スクロールを促す表示。クリックで次のセクションへ移動します。
          文字を変えるときは "Scroll" の部分を書き換えてください -->
@@ -59,20 +51,9 @@
     <!-- ===== Works（抜粋） ===== -->
     <section class="section">
       <h2 class="section-title">Works</h2>
-      <div class="works-grid">
-        <!-- 作品を増やすときは <a class="work-card"> ～ </a> をコピー -->
-        <!-- href の ?id= は works-data.js の id に合わせます -->
-        <a href="work.html?id=work-01" class="work-card">
-          <div class="work-thumb"><div class="ph-1"></div></div>
-          <p class="work-title">作品タイトル 01</p>
-          <p class="work-meta">Projection Mapping / 2025</p>
-        </a>
-        <a href="work.html?id=work-02" class="work-card">
-          <div class="work-thumb"><div class="ph-2"></div></div>
-          <p class="work-title">作品タイトル 02</p>
-          <p class="work-meta">VJ / 2025</p>
-        </a>
-      </div>
+      <!-- 作品カードは works-data.js の WORKS の先頭から自動で表示されます
+           （表示する数は script.js の HOME_WORKS_COUNT） -->
+      <div class="works-grid" id="home-works"></div>
       <a href="works.html" class="more-link">All works →</a>
     </section>
   </main>
@@ -82,6 +63,8 @@
     © 2025 YOUR NAME
   </footer>
 
+  <script src="works-data.js"></script>
+  <script src="menu.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

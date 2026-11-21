@@ -3,19 +3,6 @@
 // 作品データは works-data.js にあります（ここは基本的に触らなくてOK）
 // ==========================================================
 
-// カード1枚分のHTMLを作る（クリックで詳細ページへ）
-function cardHTML(w) {
-  const thumb = w.image
-    ? `<img src="${w.image}" alt="${w.title}">`
-    : `<div class="ph-${w.ph}"></div>`;
-  return `
-    <a href="work.html?id=${w.id}" class="work-card">
-      <div class="work-thumb">${thumb}</div>
-      <p class="work-title">${w.title}</p>
-      <p class="work-meta">${w.category} / ${w.period}</p>
-    </a>`;
-}
-
 // 出てくる順にカテゴリを重複なしで取り出す（日本語名でもOK）
 const categories = [...new Set(WORKS.map((w) => w.category))];
 

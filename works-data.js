@@ -1,4 +1,17 @@
 // ==========================================================
+// トップページのスライド（ヒーロー）
+//   caption : 左下に出す文字
+//   image   : 画像のパス（例 "images/slide1.jpg"）。仮のうちは ""
+//   bg      : image が "" のときの仮の背景（グラデーション）
+// スライドを増やすときは { ... }, をコピー。切替間隔は script.js の INTERVAL。
+// ==========================================================
+const SLIDES = [
+  { caption: "Work 01 — 仮タイトル", image: "", bg: "linear-gradient(135deg, #1a1a2e, #0f3460)" },
+  { caption: "Work 02 — 仮タイトル", image: "", bg: "linear-gradient(135deg, #2b1055, #7597de)" },
+  { caption: "Work 03 — 仮タイトル", image: "", bg: "linear-gradient(135deg, #000000, #434343)" },
+];
+
+// ==========================================================
 // 作品データ（一覧ページ・詳細ページ共通）
 //
 // ★作品を追加・編集するときは、この WORKS だけ触ればOKです。
@@ -21,6 +34,8 @@
 //   description : 作品の説明。改行したい所に \n を入れると段落が分かれます
 //   skills      : 使用スキル・ツールの一覧
 //   image       : 一覧に出すサムネイル画像のパス。仮のうちは ""
+//                 ※ ファイル名の付け方は images/README.txt の命名規則を参照
+//                   サムネイル → images/{id}-thumb.jpg   写真 → images/{id}-01.jpg
 //   ph          : 仮サムネイルの色（1〜3）。image を入れたら無視されます
 // ==========================================================
 const WORKS = [
@@ -28,17 +43,16 @@ const WORKS = [
     id: "work-01",
     title: "作品タイトル 01",
     category: "Projection Mapping",
-    period: "2025.03",
+    period: "2025.12",
     client: "クライアント名",
     credits: [
       ["Direction", "YOUR NAME"],
       ["Visual", "YOUR NAME"],
-      ["Sound", "サウンド担当の名前"],
     ],
     video: "",
     photos: ["", "", ""],
-    description: "ここに作品の説明を書きます。コンセプトや制作の背景など。\n改行したいときは、文中に \\n を入れると段落が分かれます。",
-    skills: ["TouchDesigner", "MadMapper", "After Effects"],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
     image: "",
     ph: 1,
   },
@@ -46,15 +60,16 @@ const WORKS = [
     id: "work-02",
     title: "作品タイトル 02",
     category: "VJ",
-    period: "2025.01",
-    client: "Personal Work",
+    period: "2025.11",
+    client: "クライアント名",
     credits: [
-      ["VJ", "YOUR NAME"],
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
     ],
     video: "",
-    photos: ["", ""],
+    photos: ["", "", "", ""],
     description: "ここに作品の説明を書きます。",
-    skills: ["Resolume", "TouchDesigner"],
+    skills: ["TouchDesigner", "Resolume"],
     image: "",
     ph: 2,
   },
@@ -62,17 +77,150 @@ const WORKS = [
     id: "work-03",
     title: "作品タイトル 03",
     category: "Installation",
-    period: "2024.10",
+    period: "2025.10",
+    client: "Personal Work",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 3,
+  },
+  {
+    id: "work-04",
+    title: "作品タイトル 04",
+    category: "Projection Mapping",
+    period: "2025.09",
     client: "クライアント名",
     credits: [
       ["Direction", "YOUR NAME"],
-      ["Technical", "テクニカル担当の名前"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", "", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 1,
+  },
+  {
+    id: "work-05",
+    title: "作品タイトル 05",
+    category: "VJ",
+    period: "2024.08",
+    client: "クライアント名",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
     ],
     video: "",
     photos: ["", "", "", ""],
     description: "ここに作品の説明を書きます。",
-    skills: ["Blender", "TouchDesigner", "Arduino"],
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 2,
+  },
+  {
+    id: "work-06",
+    title: "作品タイトル 06",
+    category: "Installation",
+    period: "2024.07",
+    client: "Personal Work",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
     image: "",
     ph: 3,
   },
+  {
+    id: "work-07",
+    title: "作品タイトル 07",
+    category: "Projection Mapping",
+    period: "2024.06",
+    client: "クライアント名",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", "", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 1,
+  },
+  {
+    id: "work-08",
+    title: "作品タイトル 08",
+    category: "VJ",
+    period: "2024.05",
+    client: "クライアント名",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", "", "", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 2,
+  },
+  {
+    id: "work-09",
+    title: "作品タイトル 09",
+    category: "Installation",
+    period: "2023.04",
+    client: "Personal Work",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 3,
+  },
+  {
+    id: "work-10",
+    title: "作品タイトル 10",
+    category: "Projection Mapping",
+    period: "2023.03",
+    client: "クライアント名",
+    credits: [
+      ["Direction", "YOUR NAME"],
+      ["Visual", "YOUR NAME"],
+    ],
+    video: "",
+    photos: ["", "", ""],
+    description: "ここに作品の説明を書きます。",
+    skills: ["TouchDesigner", "Resolume"],
+    image: "",
+    ph: 1,
+  },
 ];
+
+// ---------- ここから下は表示用の共通処理（触らなくてOK） ----------
+// カード1枚分のHTMLを作る（クリックで詳細ページへ）
+function cardHTML(w) {
+  const thumb = w.image
+    ? `<img src="${w.image}" alt="${w.title}">`
+    : `<div class="ph-${w.ph}"></div>`;
+  return `
+    <a href="work.html?id=${w.id}" class="work-card">
+      <div class="work-thumb">${thumb}</div>
+      <p class="work-title">${w.title}</p>
+      <p class="work-meta">${w.category} / ${w.period}</p>
+    </a>`;
+}

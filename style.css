@@ -10,6 +10,7 @@
   --muted: #8a8a8a;     /* 薄い文字色（補足テキスト用） */
   --line: #242424;      /* 区切り線の色 */
   --max-width: 1080px;  /* コンテンツの最大幅 */
+  --header-h: 80px;     /* 固定ヘッダーの高さ */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,16 +29,24 @@ img { max-width: 100%; display: block; }
 
 /* ---------- ヘッダー ---------- */
 .site-header {
-  position: absolute;      /* ヒーローの上に重ねる */
+  position: fixed;         /* 画面上部に固定（スクロールしてもついてくる） */
   top: 0; left: 0; right: 0;
-  z-index: 10;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 28px 40px;
+  height: var(--header-h);
+  padding: 0 40px;
+  transition: background 0.4s;
 }
-/* 下層ページ（works / about）ではヘッダーを通常配置にする */
-.site-header.static { position: static; }
+/* トップページ：最初は透明でヒーローに重ね、スクロールしたら背景色が付く
+   （.scrolled は script.js が付け外しします） */
+.site-header.scrolled { background: rgba(10, 10, 10, 0.9); }
+
+/* 下層ページ（works / about / work）：常に背景色を付けて、下の内容が透けないようにする */
+.site-header.static { background: var(--bg); border-bottom: 1px solid var(--line); }
+/* 固定ヘッダーの高さ分、下層ページの本文を下げる */
+.site-header.static + main { margin-top: var(--header-h); }
 
 .site-name { font-size: 1rem; letter-spacing: 0.25em; }
 
@@ -50,6 +59,10 @@ img { max-width: 100%; display: block; }
   transition: opacity 0.3s;
 }
 .site-nav a:hover, .site-nav a.current { opacity: 1; }
+
+/* ---------- ハンバーガーメニュー ----------
+   PCでは非表示。スマホ幅（下の @media）で表示されます */
+.menu-toggle { display: none; }
 
 /* ---------- ヒーロー（スライド） ---------- */
 .hero {
@@ -171,6 +184,34 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 
 .works-section { margin-bottom: 120px; }
 
+/* カテゴリリンクで移動したとき、見出しの上に余白を残す
+   （数字を大きくすると余白が増えます） */
+.works-section { scroll-margin-top: calc(var(--header-h) + 60px); }  /* 固定ヘッダー分 + 余白 */
+
+/* ---------- Works：1画面に収める（PCのみ） ----------
+   最初の画面に「見出し・カテゴリリンク・All の1段目と2段目」が
+   ぴったり収まるようにサムネイルの高さを画面の高さから計算します。
+   --fit-offset は「サムネイル以外の部分の高さ」の合計（目安）。
+     ・2段目が画面からはみ出す → 数字を大きく（例 560px）
+     ・下に余白が余る           → 数字を小さく（例 460px）
+   140px は サムネイルの最低の高さ（小さい画面で潰れないように） */
+@media (min-width: 900px) {
+  .works-page { padding-top: 40px; }
+  .works-page .page-title { margin-bottom: 24px; }
+  .works-page .category-nav { margin-bottom: 32px; padding-bottom: 16px; }
+  .works-page #all .section-title { margin-bottom: 20px; }
+  .works-page #works-all { row-gap: 32px; }
+
+  .works-page #works-all {
+    --fit-offset: 510px;
+  }
+  .works-page #works-all .work-thumb {
+    aspect-ratio: auto;
+    height: max(140px, calc((100vh - var(--fit-offset)) / 2));
+  }
+  .works-page #works-all .work-thumb img { width: 100%; height: 100%; object-fit: cover; }
+}
+
 /* ---------- 作品詳細ページ ---------- */
 #work-detail { padding-top: 40px; }   /* ページ上部の余白（詰めて1画面に収める） */
 .detail-title { margin: 8px 0 24px; }
@@ -275,8 +316,54 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 
 /* ---------- スマホ対応 ---------- */
 @media (max-width: 640px) {
-  .site-header { padding: 20px; }
-  .site-nav { gap: 20px; }
+  :root { --header-h: 64px; }
+  .site-header { padding: 0 20px; }
+
+  /* ハンバーガーボタン（2本線 → 開くと×になる） */
+  .menu-toggle {
+    display: block;
+    position: relative;
+    z-index: 2;              /* メニュー画面より手前に出す */
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+  }
+  .menu-toggle span {
+    position: absolute;
+    left: 4px;
+    width: 24px;
+    height: 1px;
+    background: var(--text);
+    transition: transform 0.3s, top 0.3s;
+  }
+  .menu-toggle span:nth-child(1) { top: 12px; }
+  .menu-toggle span:nth-child(2) { top: 20px; }
+  .menu-toggle.open span:nth-child(1) { top: 16px; transform: rotate(45deg); }
+  .menu-toggle.open span:nth-child(2) { top: 16px; transform: rotate(-45deg); }
+
+  /* 名前もメニュー画面より手前に */
+  .site-name { position: relative; z-index: 2; }
+
+  /* メニュー本体：全画面に広がって中央にリンクを縦に並べる */
+  .site-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    background: var(--bg);
+    opacity: 0;
+    pointer-events: none;     /* 閉じている間はクリックを通す */
+    transition: opacity 0.4s;
+  }
+  .site-nav.open { opacity: 1; pointer-events: auto; }
+  .site-nav a { font-size: 1rem; opacity: 1; }
+
+  body.menu-open { overflow: hidden; }  /* メニュー表示中は背景をスクロールさせない */
   .section { padding: 80px 20px; }
   .slide { padding: 0 20px 40px; }
   .works-grid { grid-template-columns: 1fr; }  /* スマホでは1列 */

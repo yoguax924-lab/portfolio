@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Works | YOUR NAME</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== ヘッダー（現在のページに class="current" を付けています） ===== -->
+  <header class="site-header static">
+    <a href="index.html" class="site-name">YOUR NAME</a>
+    <nav class="site-nav">
+      <a href="works.html" class="current">Works</a>
+      <a href="about.html">About me</a>
+    </nav>
+  </header>
+
+  <main class="section">
+    <h1 class="page-title">WORKS</h1>
+
+    <!-- ===== カテゴリへのリンク =====
+         中身は works.js が自動で作ります（ここは触らなくてOK） -->
+    <nav class="category-nav" id="category-nav"></nav>
+
+    <!-- ===== 全作品の一覧（2列グリッド） ===== -->
+    <section class="works-section" id="all">
+      <h2 class="section-title">All</h2>
+      <div class="works-grid" id="works-all"></div>
+    </section>
+
+    <!-- ===== カテゴリ別の一覧 =====
+         作品の追加・編集は works-data.js の WORKS を書き換えてください -->
+    <div id="works-categories"></div>
+  </main>
+
+  <footer class="site-footer">© 2025 YOUR NAME</footer>
+
+  <!-- 作品データ → 表示処理 の順で読み込む（順番を変えないでください） -->
+  <script src="works-data.js"></script>
+  <script src="works.js"></script>
+</body>
+</html>

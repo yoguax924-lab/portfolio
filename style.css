@@ -1,0 +1,285 @@
+/* ==========================================================
+   共通スタイル（全ページで読み込まれます）
+   ========================================================== */
+
+/* ---------- 色・フォントの設定 ----------
+   ここを書き換えるとサイト全体の雰囲気が変わります */
+:root {
+  --bg: #0a0a0a;        /* 背景色 */
+  --text: #ffffff;      /* 文字色 */
+  --muted: #8a8a8a;     /* 薄い文字色（補足テキスト用） */
+  --line: #242424;      /* 区切り線の色 */
+  --max-width: 1080px;  /* コンテンツの最大幅 */
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Helvetica Neue", Arial, "Hiragino Sans", "Yu Gothic", sans-serif;
+  font-weight: 300;
+  line-height: 1.9;
+  letter-spacing: 0.06em;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  position: absolute;      /* ヒーローの上に重ねる */
+  top: 0; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 40px;
+}
+/* 下層ページ（works / about）ではヘッダーを通常配置にする */
+.site-header.static { position: static; }
+
+.site-name { font-size: 1rem; letter-spacing: 0.25em; }
+
+.site-nav { display: flex; gap: 32px; }
+.site-nav a {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.site-nav a:hover, .site-nav a.current { opacity: 1; }
+
+/* ---------- ヒーロー（スライド） ---------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 480px;
+  overflow: hidden;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 2s ease;   /* フェードの速さ */
+  display: flex;
+  align-items: flex-end;
+  padding: 0 40px 60px;
+}
+.slide.active { opacity: 1; }
+
+.slide-caption { font-size: 0.8rem; letter-spacing: 0.25em; color: var(--muted); }
+
+/* ---------- スクロール誘導 ----------
+   ヒーロー下部中央に「Scroll」と下向き矢印を表示（矢印が上下にふわっと動く） */
+html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
+
+.scroll-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.65rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.scroll-arrow {
+  width: 14px;                /* 矢印の大きさ */
+  height: 14px;
+  border-right: 1px solid var(--text);
+  border-bottom: 1px solid var(--text);
+  transform: rotate(45deg);   /* 下向きの「V」型にする */
+  animation: scroll-bounce 2s ease-in-out infinite;  /* 2s = 動く速さ */
+}
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0) rotate(45deg); opacity: 0.3; }
+  50%      { transform: translateY(8px) rotate(45deg); opacity: 1; }
+}
+
+/* ---------- セクション共通 ---------- */
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 120px 40px;
+}
+.section-title {
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.section p { max-width: 560px; }
+
+/* 「もっと見る」リンク */
+.more-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--muted);
+  transition: border-color 0.3s;
+}
+.more-link:hover { border-color: var(--text); }
+
+/* ---------- 作品グリッド（2列） ---------- */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* ← 列数を変えるならここ */
+  gap: 48px 32px;
+}
+.work-thumb {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.work-thumb > * { transition: transform 0.8s ease; }
+.work-card:hover .work-thumb > * { transform: scale(1.04); }
+
+.work-title { margin-top: 16px; font-size: 0.95rem; letter-spacing: 0.15em; }
+.work-meta  { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.15em; }
+
+/* 仮画像のグラデーション（本物の画像を入れたら不要） */
+.ph-1 { width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e, #16213e 50%, #0f3460); }
+.ph-2 { width: 100%; height: 100%; background: linear-gradient(135deg, #2b1055, #7597de); }
+.ph-3 { width: 100%; height: 100%; background: linear-gradient(135deg, #000000, #434343); }
+
+/* ---------- Works：カテゴリリンクとセクション ---------- */
+.category-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  margin-bottom: 80px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.category-nav a {
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  transition: color 0.3s;
+}
+.category-nav a:hover { color: var(--text); }
+
+.works-section { margin-bottom: 120px; }
+
+/* ---------- 作品詳細ページ ---------- */
+#work-detail { padding-top: 40px; }   /* ページ上部の余白（詰めて1画面に収める） */
+.detail-title { margin: 8px 0 24px; }
+
+/* 映像（16:9の枠） */
+.detail-video { aspect-ratio: 16 / 9; background: #111; margin-bottom: 24px; }
+
+/* PC表示：画面の高さに合わせて映像を小さくし、
+   作品名・映像・Period・Client が1画面に収まるようにする。
+   340px は「映像以外の部分の高さ」の目安。Periodが見切れるなら大きく、
+   映像をもっと大きくしたいなら小さくしてください。480px は映像の最小幅 */
+@media (min-width: 900px) {
+  .detail-video { width: min(100%, max(480px, calc((100vh - 340px) * 16 / 9))); }
+}
+.detail-video iframe { width: 100%; height: 100%; border: 0; }
+.video-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: var(--muted);
+}
+
+/* 時期・クライアント */
+.detail-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 64px;
+  margin-bottom: 96px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--line);
+}
+.detail-info dt { font-size: 0.7rem; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+.detail-info dd { font-size: 0.95rem; }
+
+.detail-desc p + p { margin-top: 1.2em; }
+
+/* 写真（2列。1列にしたいときは 1fr だけにする） */
+.detail-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.detail-photos img,
+.detail-photos > div { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+
+/* 使用スキルのタグ */
+.tag-list { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; }
+.tag-list li {
+  font-size: 0.8rem;
+  padding: 4px 16px;
+  border: 1px solid var(--line);
+  letter-spacing: 0.15em;
+}
+
+/* 前後の作品へのリンク */
+.detail-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 120px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+}
+.detail-nav a { color: var(--muted); transition: color 0.3s; }
+.detail-nav a:hover { color: var(--text); }
+
+/* ---------- 下層ページの見出し ---------- */
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  margin-bottom: 64px;
+}
+
+/* ---------- About：スキル一覧 ---------- */
+.skill-list { list-style: none; border-top: 1px solid var(--line); max-width: 560px; }
+.skill-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+.skill-list span { color: var(--muted); font-size: 0.8rem; }
+
+.about-block { margin-bottom: 96px; }
+
+/* ---------- フッター ---------- */
+.site-footer {
+  padding: 48px 40px;
+  text-align: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- スマホ対応 ---------- */
+@media (max-width: 640px) {
+  .site-header { padding: 20px; }
+  .site-nav { gap: 20px; }
+  .section { padding: 80px 20px; }
+  .slide { padding: 0 20px 40px; }
+  .works-grid { grid-template-columns: 1fr; }  /* スマホでは1列 */
+  .detail-photos { grid-template-columns: 1fr; }
+  .detail-nav { flex-direction: column; text-align: center; }
+}

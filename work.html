@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- タイトルは作品ごとに work.js が自動で書き換えます -->
+  <title>Work | YOUR NAME</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== ヘッダー（詳細ページは Works の一部なので Works を current に） ===== -->
+  <header class="site-header static">
+    <a href="index.html" class="site-name">YOUR NAME</a>
+    <nav class="site-nav">
+      <a href="works.html" class="current">Works</a>
+      <a href="about.html">About me</a>
+    </nav>
+  </header>
+
+  <!-- ===== 作品詳細 =====
+       この枠の中身は work.js が作品データから自動で作ります。
+       この1ページで全作品分の詳細を表示します（work.html?id=作品ID）。
+       内容の編集は works-data.js で行ってください -->
+  <main class="section" id="work-detail"></main>
+
+  <footer class="site-footer">© 2025 YOUR NAME</footer>
+
+  <script src="works-data.js"></script>
+  <script src="work.js"></script>
+</body>
+</html>

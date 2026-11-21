@@ -14,7 +14,7 @@ if (index === -1) {
     <a href="works.html" class="more-link">← Works</a>`;
 } else {
   const w = WORKS[index];
-  document.title = `${w.title} | YOUR NAME`; // ← サイト名はここでも変更可
+  document.title = `${w.title} | ${SITE.name}`; // サイト名は site.js の name
 
   // 映像：最初は自分のデザインの再生ボタン付き画像だけを見せて、
   // クリックされたらYouTube/Vimeoの動画を読み込む（再生前にYouTubeのロゴ等を出さないため）。

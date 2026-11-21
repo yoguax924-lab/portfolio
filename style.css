@@ -195,20 +195,65 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .ph-2 { width: 100%; height: 100%; background: linear-gradient(135deg, #2b1055, #7597de); }
 .ph-3 { width: 100%; height: 100%; background: linear-gradient(135deg, #000000, #434343); }
 
+/* ---------- トップページの Works を大きく ----------
+   横幅を広げる（通常は var(--max-width) = 1080px）。もっと大きくしたいときは数字を増やす */
+.section-wide { max-width: 1600px; }
+/* 作品を横並びではなく、横長の画像を縦に1枚ずつ並べる */
+#home-works { grid-template-columns: 1fr; gap: 72px; }       /* 1fr = 1列 */
+#home-works .work-thumb { aspect-ratio: 16 / 9; }            /* 画像の比率 */
+
+/* ジグザグ配置：画像とテキストを横に並べ、1つおきに左右を入れ替える
+   （スマホでは普通の縦並びに戻る） */
+@media (min-width: 700px) {
+  #home-works .work-card {
+    display: grid;
+    grid-template-columns: 3fr 1fr;     /* 画像:テキスト の幅の比率 */
+    column-gap: 40px;
+    grid-template-rows: 1fr auto auto 1fr;
+  }
+  #home-works .work-thumb { grid-column: 1; grid-row: 1 / -1; }
+  #home-works .work-title { grid-column: 2; grid-row: 2; margin-top: 0; }
+  #home-works .work-meta  { grid-column: 2; grid-row: 3; }
+
+  /* 偶数番目（2つ目、4つ目…）は左右を入れ替える */
+  #home-works .work-card:nth-child(even) { grid-template-columns: 1fr 3fr; }
+  #home-works .work-card:nth-child(even) .work-thumb { grid-column: 2; }
+  #home-works .work-card:nth-child(even) .work-title,
+  #home-works .work-card:nth-child(even) .work-meta { grid-column: 1; text-align: right; }
+}
+/* タイトル・補足の文字を少し大きく */
+#home-works .work-title { font-size: 1.35rem; }
+#home-works .work-meta  { font-size: 0.95rem; }
+
+/* 見出しの横にリンクを置く行（左：見出し／右：リンク） */
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 32px;
+}
+.section-head .section-title { margin-bottom: 0; }
+.section-head .more-link { margin-top: 0; }
+
 /* ---------- Works：カテゴリリンクとセクション ---------- */
 .category-nav {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 12px 32px;
   margin-bottom: 20px;
 }
+/* Type は Skill より大きく・明るくして、主役のナビに見せる */
+.category-nav { gap: 14px 40px; margin-bottom: 28px; }
+.category-nav .skill-label { font-size: 0.8rem; color: var(--text); }  /* 「TYPE」ラベル */
 .category-nav a {
-  font-size: 0.8rem;
+  font-size: 1.05rem;        /* 大きさ（Skill は 0.75rem） */
   letter-spacing: 0.2em;
-  color: var(--muted);
-  transition: color 0.3s;
+  color: var(--text);        /* 白 */
+  opacity: 0.65;
+  transition: opacity 0.3s;
 }
-.category-nav a:hover { color: var(--text); }
+.category-nav a:hover { opacity: 1; }
 
 /* スキルの絞り込みボタン */
 .skill-nav {
@@ -418,6 +463,21 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 
 .about-block { margin-bottom: 96px; }
 
+/* ---------- About：プロフィール画像 + 文章 ---------- */
+.profile { display: flex; gap: 48px; align-items: flex-start; }
+.profile-img {
+  flex: none;
+  width: 240px;              /* 画像の幅 */
+  aspect-ratio: 3 / 4;       /* 縦長の比率 */
+  object-fit: cover;         /* 枠に合わせて切り抜き */
+  background: #151515;       /* 画像がまだないときの仮の色 */
+}
+.profile-reverse { justify-content: space-between; }  /* トップ用：文章が左、画像が右 */
+.profile-text { flex: 1; }
+.profile-text p { max-width: 560px; }
+/* トップ用：文章を写真側へ広げる（もっと伸ばすなら数字を増やす） */
+.profile-reverse .profile-text p { max-width: 760px; }
+
 /* ---------- フッター ---------- */
 .site-footer {
   padding: 48px 40px;
@@ -481,6 +541,17 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   .section { padding: 80px 20px; }
   .slide { padding: 0 20px 40px; }
   .works-grid { grid-template-columns: 1fr; }  /* スマホでは1列 */
+  .profile { flex-direction: column; gap: 24px; }  /* スマホでは画像が文章の上 */
+  .profile-reverse { flex-direction: column-reverse; }  /* トップは文章が先に書いてあるので、順番を逆にして画像を上に */
+  .profile-img { width: 160px; }
   .detail-photos { grid-template-columns: 1fr; }
   .detail-nav { flex-direction: column; text-align: center; }
+}
+
+/* ---------- トップページ：About me を大きく ----------
+   文字・画像を大きくする。数字を増やすともっと大きくなります */
+.profile-reverse .profile-text p { font-size: 1.1rem; max-width: 820px; }
+.profile-reverse .profile-img { width: 320px; }
+@media (max-width: 640px) {
+  .profile-reverse .profile-img { width: 200px; }   /* スマホでは小さめに戻す */
 }

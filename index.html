@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- ▼ ページタイトル（ブラウザのタブに表示） -->
-  <title>YOUR NAME | VJ / Projection Mapping / Art</title>
+  <title>YOUR NAME | VJ / Projection Mapping / Art</title>  <!-- 中身は site.js の name / tagline で置き換わります -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ===== ヘッダー =====
-       名前とメニュー。名前は全ページ共通なので、変えるときは index / works / about / work の4ファイルとも直してください -->
+       名前とメニュー。名前は site.js の name で一括変更できます（ここは触らなくてOK） -->
   <header class="site-header">
-    <a href="index.html" class="site-name">YOUR NAME</a>
+    <a href="index.html" class="site-name" data-site="name">YOUR NAME</a>
     <nav class="site-nav">
       <a href="works.html">Works</a>
       <a href="about.html">About me</a>
@@ -40,29 +40,42 @@
     <!-- ===== 自己紹介（短め） ===== -->
     <section class="section" id="about">
       <h2 class="section-title">About me</h2>
-      <!-- ▼ ここの文章を自分の紹介文に書き換え -->
-      <p>
-        VJ・プロジェクションマッピングを中心に、光と映像で空間を作っています。
-        ここに簡単な自己紹介文を入れてください。
-      </p>
-      <a href="about.html" class="more-link">About me →</a>
+      <!-- 左：文章 / 右：プロフィール画像（About meページと同じ images/profile.jpg） -->
+      <div class="profile profile-reverse">
+        <div class="profile-text">
+          <!-- ▼ ここの文章を自分の紹介文に書き換え -->
+          <p>
+            VJ・プロジェクションマッピングを中心に、光と映像で空間を作っています。
+            ここに簡単な自己紹介文を入れてください。ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+          </p>
+          <a href="about.html" class="more-link">About me →</a>
+        </div>
+        <img src="images/profile.jpg" alt="プロフィール画像" class="profile-img">
+      </div>
     </section>
 
     <!-- ===== Works（抜粋） ===== -->
-    <section class="section">
-      <h2 class="section-title">Works</h2>
+    <!-- section-wide：Works だけ横幅を広げて、作品を大きく見せる（幅は style.css の .section-wide） -->
+    <section class="section section-wide">
+      <!-- 見出しと「All works」を横並びにする行 -->
+      <div class="section-head">
+        <h2 class="section-title">Works</h2>
+        <a href="works.html" class="more-link">All works →</a>
+      </div>
       <!-- 作品カードは works-data.js の WORKS の先頭から自動で表示されます
            （表示する数は script.js の HOME_WORKS_COUNT） -->
       <div class="works-grid" id="home-works"></div>
+      <!-- 作品の下にも同じリンクを置く -->
       <a href="works.html" class="more-link">All works →</a>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <!-- ▼ コピーライトの名前を変更 -->
+  <!-- コピーライトの名前と年は site.js で一括変更できます -->
+  <footer class="site-footer" data-site="copyright">
     © 2025 YOUR NAME
   </footer>
 
+  <script src="site.js"></script>
   <script src="works-data.js"></script>
   <script src="menu.js"></script>
   <script src="script.js"></script>

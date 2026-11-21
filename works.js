@@ -11,6 +11,7 @@ const catId = (i) => "cat-" + i;
 
 // カテゴリへのリンク（上部ナビ）
 document.getElementById("category-nav").innerHTML =
+  `<span class="skill-label">Type</span>` +   // 「Skill」と同じ見た目のラベル
   `<a href="#all">All</a>` +
   categories.map((c, i) => `<a href="#${catId(i)}">${c}</a>`).join("");
 

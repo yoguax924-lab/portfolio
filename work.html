@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- タイトルは作品ごとに work.js が自動で書き換えます -->
-  <title>Work | YOUR NAME</title>
+  <title data-page="Work">Work | YOUR NAME</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ===== ヘッダー（詳細ページは Works の一部なので Works を current に） ===== -->
   <header class="site-header static">
-    <a href="index.html" class="site-name">YOUR NAME</a>
+    <a href="index.html" class="site-name" data-site="name">YOUR NAME</a>
     <nav class="site-nav">
       <a href="works.html" class="current">Works</a>
       <a href="about.html">About me</a>
@@ -28,8 +28,9 @@
        内容の編集は works-data.js で行ってください -->
   <main class="section" id="work-detail"></main>
 
-  <footer class="site-footer">© 2025 YOUR NAME</footer>
+  <footer class="site-footer" data-site="copyright">© 2025 YOUR NAME</footer>
 
+  <script src="site.js"></script>
   <script src="works-data.js"></script>
   <script src="work.js"></script>
   <script src="menu.js"></script>

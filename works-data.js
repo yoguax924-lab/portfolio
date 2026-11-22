@@ -69,12 +69,13 @@ const WORKS = [
     //   image   : 画像のパス
     //   compare : Before/After を見せる項目だけ { before: "画像", after: "画像" } を書く（image の代わり）
     process: [
-      { title: "コンセプト設計", text: "ここに1〜2行の説明を書きます。\n文字数は他の項目と揃えます。", image: "" },
-      { title: "映像の制作",     text: "ここに1〜2行の説明を書きます。\n文字数は他の項目と揃えます。", compare: { before: "", after: "" } },
+      { title: "感知システム", text: "ここに1〜2行の説明を書きます。\n文字数は他の項目と揃えます。", video: "videos/work-01-process-1.mp4", poster: "images/work-01-process-1.jpg" },
+      // video を書くと mp4 を音なし・ループで自動再生します（image の代わりに書く）。poster は読み込み前に見せる画像（省略可）
+      { title: "パーティクルなど",     text: "ここに1〜2行の説明を書きます。\n文字数は他の項目と揃えます。", video: "videos/work-01-process-2.mp4", poster: "images/work-01-process-2.png" },
       // slides を書くと、クリックでページ送りするスライドカードになります（枚数は自由。画像の代わりに書く）
       { title: "現地での調整",   text: "ここに1〜2行の説明を書きます。\n文字数は他の項目と揃えます。", slides: [
         { src: "images/work-01-1.jpg", note: "1枚目の注釈をここに書きます。" },   // note = 画像に重ねて出す注釈（省略可）
-        { src: "images/work-01-2.jpg", note: "2枚目の注釈をここに書きます。" },
+        { src: "images/work-01-2.jpg", note: "2枚目の注釈をここに書きます。" }, 
       ] },
     ],
 
@@ -82,8 +83,9 @@ const WORKS = [
     tech: {
       diagram: "images/work-01-system.svg",                                   // 設置図の画像
       diagramCaption: "設置図の説明を1行で書きます。",
-      photos: ["", ""],                              // 左：設営中の様子 / 右：本番の会場
-      photosCaption: "左：設営中の様子　右：本番の会場",
+      // 設置図の下に写真を横に並べたいときは、次の2行を書く（書かなければ表示されません）
+      // photos: ["", ""],                           // 左：設営中の様子 / 右：本番の会場
+      // photosCaption: "左：設営中の様子　右：本番の会場",
     },
 
     // 工夫と学び：2〜3行の文章（\n で改行）。左にアクセントカラーの縦線が付きます

@@ -108,7 +108,13 @@ if (index === -1) {
                  <button class="slider-btn next" type="button" aria-label="次へ">→</button>
                  <span class="slider-count">1 / ${p.slides.length}</span>
                </div>`
-            : frame(p.image, "r-32", p.title);
+            : p.video
+              // video（mp4）があれば、音なし・ループの自動再生で見せる（GIFのような使い方）
+              ? `<div class="frame r-32">
+                   ${mediaEl(p.poster, p.title)}
+                   <video src="${p.video}" ${p.poster ? `poster="${p.poster}"` : ""} autoplay muted loop playsinline preload="metadata"></video>
+                 </div>`
+              : frame(p.image, "r-32", p.title);
         return `
         <div class="process-item">
           <div class="process-media">${media}</div>
@@ -138,10 +144,15 @@ if (index === -1) {
         ${frame(t.diagram, "r-169", "設置図")}
         <figcaption>${t.diagramCaption}</figcaption>
       </figure>
-      <figure class="tech-figure">
+      ${
+        // 写真（photos）を書いたときだけ、設置図の下に横並びで表示
+        t.photos
+          ? `<figure class="tech-figure">
         <div class="tech-photos">${t.photos.map((p, i) => frame(p, "r-32", `${w.title} 現場 ${i + 1}`)).join("")}</div>
-        <figcaption>${t.photosCaption}</figcaption>
-      </figure>
+        <figcaption>${t.photosCaption || ""}</figcaption>
+      </figure>`
+          : ""
+      }
     </div>`;
   }
 

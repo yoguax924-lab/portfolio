@@ -14,7 +14,7 @@ if (index === -1) {
     <a href="works.html" class="more-link">← Works</a>`;
 } else {
   const w = WORKS[index];
-  document.title = `${w.title} | ${SITE.name}`; // サイト名は site.js の name
+  document.title = `${w.title.replace(/\n/g, " ")} | ${SITE.name}`; // サイト名は site.js の name
 
   // 映像：最初は自分のデザインの再生ボタン付き画像だけを見せて、
   // クリックされたらYouTube/Vimeoの動画を読み込む（再生前にYouTubeのロゴ等を出さないため）。
@@ -146,7 +146,7 @@ if (index === -1) {
       <h2 class="section-title">Technical</h2>
       <figure class="tech-figure">
         ${frame(t.diagram, "r-169", "設置図")}
-        <figcaption>${t.diagramCaption}</figcaption>
+        ${t.diagramCaption ? `<figcaption>${t.diagramCaption}</figcaption>` : ""}
       </figure>
       ${
         // 写真（photos）を書いたときだけ、設置図の下に横並びで表示
@@ -175,13 +175,14 @@ if (index === -1) {
 
   root.innerHTML = `
     <p class="work-meta">${w.category}</p>
-    <h1 class="page-title detail-title">${w.title}</h1>
+    <h1 class="page-title detail-title">${w.title.split("\n").map((t, i) => (i === 0 ? t : `<span class="title-sub">${t}</span>`)).join("")}</h1>
 
     <div class="detail-video">${video}</div>
 
     <dl class="detail-info">
       <div><dt>Period</dt><dd>${w.period}</dd></div>
-      <div><dt>Client</dt><dd>${w.client}</dd></div>
+      <div><dt>Client / Event</dt><dd>${w.client}</dd></div>
+      ${w.role ? `<div><dt>Role</dt><dd>${w.role}</dd></div>` : ""}
       <div><dt>Skills</dt><dd><ul class="tag-list">${w.skills.map((s) => `<li><a href="works.html?skill=${encodeURIComponent(s)}">${s}</a></li>`).join("")}</ul></dd></div>
     </dl>
 
@@ -209,9 +210,9 @@ if (index === -1) {
     </div>
 
     <nav class="detail-nav">
-      ${prev ? `<a href="work.html?id=${prev.id}">← ${prev.title}</a>` : `<span></span>`}
+      ${prev ? `<a href="work.html?id=${prev.id}">← ${prev.title.replace(/\n/g, " ")}</a>` : `<span></span>`}
       <a href="works.html">All works</a>
-      ${next ? `<a href="work.html?id=${next.id}">${next.title} →</a>` : `<span></span>`}
+      ${next ? `<a href="work.html?id=${next.id}">${next.title.replace(/\n/g, " ")} →</a>` : `<span></span>`}
     </nav>`;
 
   // スライドカード：画像をクリック（または矢印ボタン）でページ送り。

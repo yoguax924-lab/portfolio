@@ -340,6 +340,8 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 /* ---------- 作品詳細ページ ---------- */
 #work-detail { padding-top: 40px; }   /* ページ上部の余白（詰めて1画面に収める） */
 .detail-title { margin: 8px 0 24px; }
+/* タイトルの2行目（title の \n より後ろ）は小さく。数字（0.6em）を大きくすると1行目に近づく */
+.detail-title .title-sub { display: block; font-size: 0.6em; margin-top: 0.6em; line-height: 1.6; }
 
 /* 映像（16:9の枠） */
 .detail-video { aspect-ratio: 16 / 9; background: #111; margin-bottom: 24px; }

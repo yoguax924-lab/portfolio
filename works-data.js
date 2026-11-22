@@ -61,7 +61,14 @@ const WORKS = [
 
     // ----- 以下は「詳細レイアウト」用の項目（この作品だけ使用。書かなければ表示されません） -----
     // 完成カット：3〜4枚。1枚目=左に大きく / 2・3枚目=右に小さく縦2枚 / 4枚目=その下に横長。説明は付けません
-    gallery: ["", "", "", ""],   // 例 "images/work-01-final-01.jpg"
+    // galleryLayout: "mosaic" = 縦長2枚（1・2枚目）を左、横長2枚（3・4枚目）を右に縦積み。縦横が混ざっているとき用
+    galleryLayout: "mosaic",
+    gallery: [
+      "images/work-01-shots-2.jpg",   // 縦長
+      "images/work-01-shots-3.jpg",   // 縦長
+      "images/work-01-shots-1.jpg",   // 横長
+      "images/work-01-shots-4.jpg",   // 横長
+    ],
 
     // 制作過程：3〜5項目。画像と「番号付き小見出し＋1〜2行の説明」を左右に並べ、項目ごとに左右が入れ替わります
     //   title   : 小見出し（番号 01, 02… は自動で付きます）

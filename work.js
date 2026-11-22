@@ -65,19 +65,23 @@ if (index === -1) {
   const frame = (src, cls, alt) => `<div class="frame ${cls}">${mediaEl(src, alt)}</div>`;
   const lines = (t) => t.split("\n").join("<br>");   // \n で改行
 
-  // 完成カット（gallery）：1枚目=左に大きく、2・3枚目=右に小さく縦2枚、4枚目以降=その下に横長
+  // 完成カット（gallery）。並べ方は galleryLayout で選ぶ：
+  //   省略    : 1枚目=左に大きく、2・3枚目=右に小さく縦2枚、4枚目以降=その下に横長
+  //   "mosaic": 縦長2枚（1・2枚目）を左に並べ、横長2枚（3・4枚目）を右に縦に積む（縦横混在用）
   let gallerySection = "";
   if (w.gallery) {
+    const mosaic = w.galleryLayout === "mosaic";
+    const roles = mosaic ? ["g-p g-p1", "g-p g-p2", "g-l g-l1", "g-l g-l2"] : [];
     const items = w.gallery
       .map((src, i) => {
-        const role = i === 0 ? "g-main" : i <= 2 ? "g-side" : "g-wide";
+        const role = roles[i] || (mosaic ? "g-l" : i === 0 ? "g-main" : i <= 2 ? "g-side" : "g-wide");
         return `<div class="frame gallery-item ${role}">${mediaEl(src, `${w.title} ${i + 1}`)}</div>`;
       })
       .join("");
     gallerySection = `
     <div class="about-block">
       <h2 class="section-title">Final Shots</h2>
-      <div class="gallery">${items}</div>
+      <div class="gallery${mosaic ? " mosaic" : ""}">${items}</div>
     </div>`;
   }
 

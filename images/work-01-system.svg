@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" font-family="'Noto Sans CJK JP','Noto Sans CJK TC','Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#B4B2A9"/>
+    </marker>
+    <g id="koi">
+      <path d="M-34,0 C-20,-13 18,-13 30,0 C18,13 -20,13 -34,0 z" fill="#E8E4DA"/>
+      <path d="M-8,-9 C2,-12 12,-9 18,-3 C8,-1 -2,-2 -8,-9 z" fill="#D85A30"/>
+      <path d="M-20,2 C-14,8 -4,9 2,6 C-6,4 -14,3 -20,2 z" fill="#D85A30"/>
+      <path d="M28,0 L46,-11 L41,0 L46,11 z" fill="#E8E4DA"/>
+    </g>
+  </defs>
+  <rect width="1600" height="900" fill="#0f0f0e"/>
+
+  <text x="80" y="92" fill="#888780" font-size="20" letter-spacing="3">SYSTEM</text>
+  <text x="80" y="134" fill="#F1EFE8" font-size="32" font-weight="500">想定配置図</text>
+
+
+  <!-- floor / water surface -->
+  <polygon points="420,600 1180,600 1320,800 280,800" fill="#0b1a20" stroke="#185FA5" stroke-width="1.5"/>
+  <path d="M400,640 C520,628 640,652 760,640 S1000,628 1220,644" fill="none" stroke="#185FA5" stroke-width="1.2" opacity=".6"/>
+  <path d="M360,700 C500,688 640,712 800,700 S1080,688 1270,704" fill="none" stroke="#185FA5" stroke-width="1.2" opacity=".6"/>
+  <path d="M320,760 C480,748 660,772 840,760 S1120,748 1300,764" fill="none" stroke="#185FA5" stroke-width="1.2" opacity=".6"/>
+
+  <!-- projection cone -->
+  <polygon points="760,222 420,600 1180,600 1320,800 280,800 420,600" fill="#7F77DD" opacity=".10"/>
+  <line x1="760" y1="222" x2="280" y2="800" stroke="#7F77DD" stroke-width="1.5" opacity=".7"/>
+  <line x1="760" y1="222" x2="1320" y2="800" stroke="#7F77DD" stroke-width="1.5" opacity=".7"/>
+  <line x1="760" y1="222" x2="420" y2="600" stroke="#7F77DD" stroke-width="1" opacity=".45"/>
+  <line x1="760" y1="222" x2="1180" y2="600" stroke="#7F77DD" stroke-width="1" opacity=".45"/>
+
+  <!-- kinect range -->
+  <line x1="880" y1="216" x2="360" y2="770" stroke="#5DCAA5" stroke-width="1.8" stroke-dasharray="8 7"/>
+  <line x1="880" y1="216" x2="1250" y2="770" stroke="#5DCAA5" stroke-width="1.8" stroke-dasharray="8 7"/>
+
+  <!-- projector -->
+  <rect x="722" y="204" width="76" height="34" rx="5" fill="#26215C" stroke="#AFA9EC" stroke-width="2"/>
+  <circle cx="760" cy="238" r="8" fill="#AFA9EC"/>
+  <!-- kinect -->
+  <rect x="846" y="204" width="68" height="18" rx="4" fill="#04342C" stroke="#5DCAA5" stroke-width="2"/>
+  <circle cx="866" cy="213" r="3.5" fill="#5DCAA5"/><circle cx="894" cy="213" r="3.5" fill="#5DCAA5"/>
+
+  <!-- labels for devices -->
+  <line x1="722" y1="221" x2="560" y2="262" stroke="#AFA9EC" stroke-width="1.2"/>
+  <text x="300" y="268" fill="#AFA9EC" font-size="21" font-weight="500">プロジェクター</text>
+  <text x="300" y="296" fill="#B4B2A9" font-size="17">上部から地面に投影</text>
+  <line x1="900" y1="222" x2="1040" y2="262" stroke="#5DCAA5" stroke-width="1.2"/>
+  <text x="1050" y="268" fill="#5DCAA5" font-size="21" font-weight="500">Kinect</text>
+  <text x="1050" y="296" fill="#B4B2A9" font-size="17">上部から来場者の位置を検出</text>
+
+  <!-- koi -->
+  <use href="#koi" transform="translate(520,660) rotate(-20) scale(1.05)"/>
+  <use href="#koi" transform="translate(1050,640) rotate(160) scale(.95)"/>
+  <use href="#koi" transform="translate(1130,750) rotate(195)"/>
+  <use href="#koi" transform="translate(430,760) rotate(10) scale(.9)"/>
+  <!-- koi fleeing from footstep -->
+  <use href="#koi" transform="translate(660,700) rotate(200)"/>
+  <use href="#koi" transform="translate(960,724) rotate(-15)"/>
+  <path d="M700,690 L740,694" stroke="#E8E4DA" stroke-width="1.5" opacity=".5"/>
+  <path d="M922,724 L888,722" stroke="#E8E4DA" stroke-width="1.5" opacity=".5"/>
+
+  <!-- ripple + particles -->
+  <ellipse cx="810" cy="712" rx="120" ry="30" fill="none" stroke="#5DCAA5" stroke-width="1.5" opacity=".55"/>
+  <ellipse cx="810" cy="712" rx="74" ry="18" fill="none" stroke="#5DCAA5" stroke-width="2" opacity=".8"/>
+  <ellipse cx="810" cy="712" rx="34" ry="8" fill="none" stroke="#9FE1CB" stroke-width="2"/>
+  <g fill="#9FE1CB">
+    <circle cx="742" cy="690" r="3"/><circle cx="880" cy="694" r="2.5"/><circle cx="720" cy="722" r="2"/>
+    <circle cx="900" cy="730" r="3"/><circle cx="770" cy="742" r="2.5"/><circle cx="852" cy="744" r="2"/>
+    <circle cx="790" cy="680" r="2"/><circle cx="838" cy="682" r="2.5"/><circle cx="700" cy="704" r="1.8"/><circle cx="924" cy="708" r="1.8"/>
+  </g>
+
+  <!-- person -->
+  <circle cx="810" cy="556" r="17" fill="#D3D1C7"/>
+  <path d="M790,580 Q810,570 830,580 L836,650 L820,650 L818,708 L803,708 L800,650 L784,650 z" fill="#D3D1C7"/>
+  <ellipse cx="811" cy="710" rx="20" ry="5" fill="#0f0f0e" opacity=".6"/>
+
+  <!-- interaction label -->
+  <line x1="300" y1="512" x2="736" y2="700" stroke="#9FE1CB" stroke-width="1.2"/>
+  <text x="90" y="472" fill="#9FE1CB" font-size="21" font-weight="500">踏むと鯉が泳ぎ去り、</text>
+  <text x="90" y="500" fill="#9FE1CB" font-size="21" font-weight="500">パーティクルが広がる</text>
+
+  <!-- floor label -->
+  <text x="280" y="842" fill="#85B7EB" font-size="21" font-weight="500">地面（屋外）</text>
+  <text x="410" y="842" fill="#B4B2A9" font-size="18">鯉の泳ぐ水面を投影</text>
+
+  <!-- PC -->
+  <rect x="1360" y="640" width="170" height="110" rx="8" fill="#15141c" stroke="#7F77DD" stroke-width="2"/>
+  <text x="1380" y="676" fill="#F1EFE8" font-size="20" font-weight="500">PC</text>
+  <text x="1380" y="702" fill="#AFA9EC" font-size="16">TouchDesigner</text>
+  <rect x="1380" y="714" width="130" height="24" rx="4" fill="none" stroke="#EF9F27" stroke-dasharray="5 4"/>
+  <text x="1445" y="731" fill="#FAC775" font-size="14" text-anchor="middle">調整用UI</text>
+  <path d="M1445,640 L1445,213 L914,213" fill="none" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 5"/>
+  <path d="M1465,640 L1465,180 L760,180 L760,204" fill="none" stroke="#888780" stroke-width="1.5" stroke-dasharray="4 5"/>
+  <text x="1478" y="440" fill="#888780" font-size="15">ケーブル</text>
+  <text x="1360" y="784" fill="#FAC775" font-size="16">設営担当者が</text>
+  <text x="1360" y="806" fill="#FAC775" font-size="16">会場に合わせて調整</text>
+
+</svg>

@@ -48,9 +48,8 @@ function applySkill(skill) {
   const list = skill ? WORKS.filter((w) => w.skills.includes(skill)) : WORKS;
   document.getElementById("works-all").innerHTML = list.map(cardHTML).join("");
   document.getElementById("all-title").textContent = skill ? `Skill — ${skill}` : "All";
-  // 絞り込み中はカテゴリ別セクションとカテゴリリンクを隠す
+  // 絞り込み中はカテゴリ別セクションを隠す（Type のリンクは表示したまま）
   document.getElementById("works-categories").classList.toggle("is-hidden", !!skill);
-  document.getElementById("category-nav").classList.toggle("is-hidden", !!skill);
   // 選択中のスキルを目立たせる
   skillNav.querySelectorAll("button").forEach((b) =>
     b.classList.toggle("active", b.dataset.skill === (skill || ""))
@@ -66,6 +65,14 @@ skillNav.addEventListener("click", (e) => {
   const s = b.dataset.skill || null;           // All は空 → null（解除）
   currentSkill = currentSkill === s ? null : s;  // 同じものを押したら解除
   applySkill(currentSkill);
+});
+
+// 絞り込み中に Type のリンクを押したら、絞り込みを解除してからそのセクションへ移動する
+document.getElementById("category-nav").addEventListener("click", (e) => {
+  if (e.target.closest("a") && currentSkill) {
+    currentSkill = null;
+    applySkill(null);   // カテゴリ別セクションを再表示（このあとリンクの移動が行われる）
+  }
 });
 
 // URLに ?skill= があれば最初から絞り込む

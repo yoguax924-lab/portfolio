@@ -45,15 +45,11 @@
     </div>
 
     <!-- ===== スキル =====
-         1行 = <li>項目名<span>補足</span></li>。増減は自由です。 -->
+         作品データ（works-data.js）の skills から自動で作られます（about.js）。
+         増減は、各作品の skills を書き換えてください。 -->
     <div class="about-block">
       <h2 class="section-title">Skills</h2>
-      <ul class="skill-list">
-        <li>VJ<span>Resolume / TouchDesigner</span></li>
-        <li>Projection Mapping<span>MadMapper / Resolume</span></li>
-        <li>映像制作<span>After Effects / Blender</span></li>
-        <li>Creative Coding<span>TouchDesigner / p5.js</span></li>
-      </ul>
+      <ul class="skill-list" id="skill-list"></ul>
     </div>
 
     <!-- ===== コンタクト（必要なら） ===== -->
@@ -66,6 +62,8 @@
 
   <footer class="site-footer" data-site="copyright">© 2025 YOUR NAME</footer>
   <script src="site.js"></script>
+  <script src="works-data.js"></script>
+  <script src="about.js"></script>
   <script src="menu.js"></script>
 </body>
 </html>

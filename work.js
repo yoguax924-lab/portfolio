@@ -47,6 +47,7 @@ if (index === -1) {
       ? `<img src="${w.poster}" alt="">`
       : id
         ? `<img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt=""
+             onload="if(this.naturalWidth<300){this.onload=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'}"
              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'">`
         : `<div class="ph-${w.ph}"></div>`;
     video = `<button class="video-facade" aria-label="動画を再生">
@@ -97,7 +98,7 @@ if (index === -1) {
       .join("");
     gallerySection = `
     <div class="about-block">
-      <div class="gallery${mosaic ? " mosaic" : layout === "feature" ? "" : " masonry"}">${items}</div>
+      <div class="gallery${mosaic ? " mosaic" : layout === "feature" ? "" : layout === "row" ? " row" : layout === "stack" ? " masonry stack" : " masonry"}"${w.galleryWidth || w.galleryGap || w.galleryColGap ? ` style="${w.galleryWidth ? `max-width:${w.galleryWidth};margin-left:auto;margin-right:auto;` : ""}${w.galleryGap ? `--g-gap:${w.galleryGap};` : ""}${w.galleryColGap ? `--g-col:${w.galleryColGap}` : ""}"` : ""}>${items}</div>
     </div>`;
   }
 
@@ -214,13 +215,15 @@ if (index === -1) {
 
     ${(w.credits || []).length && !hide.has("credits") ? `<div class="about-block">
       <h2 class="section-title">Credits</h2>
-      <ul class="skill-list">${credits}</ul>
+      <ul class="skill-list credit-list">${credits}</ul>
     </div>` : ""}
 
     <nav class="detail-nav">
-      ${prev ? `<a href="work.html?id=${prev.id}">← ${prev.title.replace(/\n/g, " ")}</a>` : `<span></span>`}
-      <a href="works.html">All works</a>
-      ${next ? `<a href="work.html?id=${next.id}">${next.title.replace(/\n/g, " ")} →</a>` : `<span></span>`}
+      <div class="detail-nav-row">
+        ${prev ? `<a href="work.html?id=${prev.id}">← ${prev.title.replace(/\n/g, " ")}</a>` : `<span></span>`}
+        ${next ? `<a href="work.html?id=${next.id}">${next.title.replace(/\n/g, " ")} →</a>` : `<span></span>`}
+      </div>
+      <a href="works.html" class="detail-nav-all">All works</a>
     </nav>`;
 
   // スライドカード：画像をクリック（または矢印ボタン）でページ送り。

@@ -1,16 +1,18 @@
 // ==========================================================
 // トップページのスライド（ヒーロー）
+//   work    : 載せる作品のID（WORKS の id と同じにする。例 "work-01"）。クリックでその作品へ飛ぶ
+// 画像と文字は、作品データから自動で入ります（一覧のサムネイル image と、タイトルの1行目）。
+//   → 作品側を書き換えれば、スライドにも反映されます。
+// 次の項目は、書いたときだけ作品データより優先されます（書かなければ自動）。
 //   caption : 左下に出す文字
-//   work    : クリックで飛ぶ作品のID（WORKS の id と同じにする。例 "work-01"）
-//             空 "" にするとリンクなし
-//   image   : 画像のパス（例 "images/slide1.jpg"）。仮のうちは ""
-//   bg      : image が "" のときの仮の背景（グラデーション）
-// スライドを増やすときは { ... }, をコピー。切替間隔は script.js の INTERVAL。
+//   image   : 画像のパス
+// スライドを増やすときは { work: "work-05" }, を足す。切替間隔は script.js の INTERVAL。
 // ==========================================================
 const SLIDES = [
-  { caption: "Work 01 — 松本城プロジェクションマッピング", work: "work-01", image: "images/slide-01.jpg", bg: "linear-gradient(135deg, #1a1a2e, #0f3460)" },
-  { caption: "Work 02 — mikkae-club party", work: "work-02", image: "images/slide-02.jpg", bg: "linear-gradient(135deg, #2b1055, #7597de)" },
-  { caption: "Work 03 — pass", work: "work-03", image: "images/slide-03.jpg", bg: "linear-gradient(135deg, #000000, #434343)" },
+  { work: "work-01" },
+  { work: "work-02" },
+  { work: "work-03" },
+  { work: "work-04" },
 ];
 
 // ==========================================================
@@ -59,6 +61,8 @@ const SLIDES = [
 //  ● 完成カット（gallery）   写真は何枚でもOK（縦横混在もOK）。並べ方は galleryLayout で選ぶ
 //        galleryLayout を省略 / "masonry" : 2列。縦横そのままの比率で並ぶ（標準・何枚でも）
 //        "mosaic"  : 縦長2枚を左・横長2枚を右に積む（ちょうど4枚。並び順は 縦,縦,横,横）
+//        "stack"   : 全部を1列に縦並び（横長の写真を大きく見せたいとき）
+//        "row"     : 全部を1列に横並び（2〜4枚向き。galleryWidth / galleryColGap で幅と間隔を調整）
 //        "feature" : 1枚目を左に大きく、2・3枚目を右に小さく縦2枚、4枚目以降を下に横長
 //  ● 制作過程（process）     項目数は自由（3〜5がおすすめ）。1項目のメディアは次のどれか1つ
 //        image: "画像"                            … 静止画1枚
@@ -136,9 +140,9 @@ const WORKS = [
     period: "2025.11",
     client: "主催イベント",
     credits: [
-      ["Host/VJ", "yuri Takasu"],
-      ["Host/PA", "haruto Ono"],
-      ["Host", "shuto Kimura"],
+      ["Host/VJ", "Yuri TAKASU"],
+      ["Host/PA", "Haruto Ono"],
+      ["Host", "Shuto Kimura"],
     ],
     video: "https://youtu.be/TFOIYgORErk?list=PLjZIZmVuXysXZB9AJ3JKTG2-aMRLnZyIy",
     // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
@@ -151,7 +155,7 @@ const WORKS = [
     ],
     description: "札幌市立大学有志によるパーティーを主催。学内中心。外でもやった。VJDJ。",
     learnings: "イベント運営について",
-    skills: ["TouchDesigner"],
+    skills: ["TouchDesigner", "Blender"],
     image: "images/work02-shots-5.jpg",
     ph: 2,
   },
@@ -212,10 +216,9 @@ const WORKS = [
     title: "passing(study)\n自主展示「アートとデザイン展」",
     category: "Installation",
     period: "2024.04",
-    client: "クライアント名",
+    client: "アートとデザイン展",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Concept / Development", "Yuri Takasu"],
     ],
     video: "https://youtu.be/WEvTFN6MC-g",
     // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
@@ -225,98 +228,177 @@ const WORKS = [
       "images/work05-shots-3.jpg",
       "images/work05-shots-4.jpg",
     ],
-    description: "ここに作品の説明を書きます。",
-    skills: ["arduino"],
+    description: "LEDパネルと距離センサーを使ったインタラクティブコンテンツ。「HELLO」と語りかけてくるが、近づくにつれて態度が変わっていき、最終的に「NO」と言う。文字とビープ音のみの表示でも機械にパーソナルスペースがあるかのように思えてくる。",
+    skills: ["Arduino"],
     image: "images/work05-shots-1.jpg",   // 一覧のサムネイル
     ph: 2,
   },
   {
     id: "work-06",
-    title: "作品タイトル 06",
-    category: "Installation",
+    title: "instagram ARフィルター\n「アートとデザイン展」広報",
+    category: "Graphics",
     period: "2024.07",
-    client: "Personal Work",
+    client: "アートとデザイン展",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["3D Animation / Development", "Yuri TAKASU"],
+      ["Flyer", "Minato Hayashi"],
     ],
-    video: "",
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "videos/work-06-main.mp4",
+    // 完成カット：galleryLayout: "row" = 全部を1列に横並び
+    galleryLayout: "row",
+    galleryWidth: "100%",   // 写真全体の幅（省略 = 100%）。縦長の写真が大きすぎるときに小さくできる。中央に寄ります
+    galleryColGap: "32px", // 左右（中央）の写真の間隔（省略 = 16px）
+    // galleryGap: "40px", // 上下の写真の間隔（省略 = 16px）
+    gallery: [
+      "images/work06-shots-3.jpg",
+      "images/work06-shots-1.jpg",
+      "images/work06-shots-2.jpg",
+    ],
+    description: "自主展示「アートとデザイン展」のinstagram広報用に作成したARフィルター。フライヤーを撮影すると文字が浮かび上がり、中心へ吸い込まれていくアニメーションが再生される。",
+    skills: ["Blender"],
+    image: "images/work06-main.jpg",
     ph: 3,
   },
   {
     id: "work-07",
-    title: "作品タイトル 07",
-    category: "Projection Mapping",
-    period: "2024.06",
-    client: "クライアント名",
+    title: "朝食を食べよう！\n札幌市本気めしプロジェクト",
+    category: "Video",
+    period: "2022.12",
+    client: "札幌市南区保健福祉部健康・子ども課",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Production", "札幌市南区保健福祉部健康・子ども課"],
+      ["Production", "札幌市立大学"],
+      ["Edit / Illust / Cast", "Yuri TAKASU"],
+      ["Cast", "Satomi Hara"],
     ],
-    video: "",
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "https://www.youtube.com/watch?v=0Jje3sFNInw&t=2s",
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work07-shots-1.png",
+      "images/work07-shots-2.png",
+      "images/work07-shots-3.png",
+      "images/work07-main.png",      // main を4番目に入れる
+      "images/work07-shots-4.png",
+      "images/work07-shots-5.png",
+    ],
+    // 工夫と学び：2〜3行の文章（\n で改行）
+    learnings: "色の見え方の違いに関わらず内容が伝わるよう、カラーユニバーサルデザインの考え方に沿って配色した。誰が見ても同じように伝わることを意識し、見る人の立場に立って編集する難しさを学んだ。",
+    description: "札幌市南区健康・子ども課と札幌市立大学デザイン学部学生の協働で制作した食育動画「朝ごはんを食べよう！」。学生ならではの視点で、同世代の若者へ向けて朝食の大切さをわかりやすく説明する「解説編」、料理が苦手でも、時間がない中でも簡単に作ることができる朝食レシピを紹介した「料理編」の2本。",
+    skills: ["Premiere Pro", "Illustrator"],
+    image: "images/work07-main.png",   // 一覧のサムネイル
     ph: 1,
   },
   {
     id: "work-08",
-    title: "作品タイトル 08",
-    category: "VJ",
-    period: "2024.05",
-    client: "クライアント名",
+    title: "まるでそれは爆弾のように",
+    category: "Video",
+    period: "2022.10",
+    client: "自主制作",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Edit / Cast", "Yuri TAKASU"],
+      ["Cast", "Teppei Kikuchi"],
+      ["Cast", "Sakura Narimatsu"],
+      ["Cast", "Satomi Hara"],
     ],
-    video: "",
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "https://youtu.be/w0vCLYe57Ds",
+    // 完成カット：galleryLayout: "stack" = 全部を1列に縦並び
+    galleryLayout: "stack",
+    gallery: [
+      "images/work08-shots-1.png",
+      "images/work08-shots-2.png",
+      "images/work08-shots-3.png",
+      "images/work08-shots-4.png",
+    ],
+    description: "演劇部にて撮影した架空の映画予告。爆発の合成にこだわった。",
+    skills: ["Premiere Pro", "After Effects"],
+    image: "images/work08-shots-1.png",   // 一覧のサムネイル
     ph: 2,
   },
   {
     id: "work-09",
-    title: "作品タイトル 09",
+    title: "タイトル\nART INTERFACE KOTONI 2026",
     category: "Installation",
-    period: "2023.04",
-    client: "Personal Work",
+    period: "2026.01",
+    client: "ART INTERFACE KOTONI 2026",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Organizer", "特定非営利活動法人 コンカリーニョ"],
+      ["Co-organizer", "公益財団法人 北海道文化財団"],
+      ["Supported by", "札幌市・札幌市教育委員会・北海道"],
+      ["Art Director", "Tsubasa Sato"],
+      ["Flyer / Poster Design", "saito nono・Michael"],
+      ["Photo", "Haruto Tsuji"],
     ],
-    video: "",
+    video: "images/work09-main.jpeg",   // 静止画（動画の代わりに画像を表示）
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work09-shots-1.jpg",
+      "images/work09-shots-2.jpg",
+    ],
     description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    image: "images/work09-main.jpeg",   // 一覧のサムネイル
+    imagePos: "center bottom",          // サムネイルで見せる位置（下の方）。省略 = 中央
     ph: 3,
   },
   {
     id: "work-10",
-    title: "作品タイトル 10",
-    category: "Projection Mapping",
-    period: "2023.03",
-    client: "クライアント名",
+    title: "square pop",
+    category: "Video",
+    period: "2023.06",
+    client: "study",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Develop / Music", "Yuri TAKASU"],
     ],
-    video: "",
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "https://youtube.com/shorts/KMu0RClWXpk?feature=share",
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work10-shots-1.jpg",
+      "images/work10-shots-2.jpg",
+      "images/work10-shots-3.jpg",
+    ],
+    description: "Processingを使用した大学課題作品。音に合わせて四角形がポップするプログラム。",
+    skills: ["Processing"],
+    image: "images/work10-shots-1.jpg",   // 一覧のサムネイル
     ph: 1,
   },
+  {
+    id: "work-11",
+    title: "プロジェクションマッピング練習作",
+    category: "Projection Mapping",
+    period: "2026.01",
+    client: "study",
+    credits: [
+      ["Development", "Yuri TAKASU"],
+    ],
+    video: "videos/work11-main.mp4",
+    poster: "images/work11-main.jpg",   // 動画の再生前に出す画像
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work11-shots-1.jpg",
+      "images/work11-shots-2.jpg",
+    ],
+    description: "Touchdesignerで作成した練習作。一つのプロジェクターで複数のオブジェクトに映像を投影。スピーカーのコーンを光らせたり立てかけた木材を電光掲示板のように見せたりとプロジェクションマッピング特有の効果を目指した",
+    skills: ["TouchDesigner"],
+    image: "images/work11-main.jpg",   // 一覧のサムネイル
+    ph: 2,
+  },
 ];
+
+// ---------- スライドに、作品の画像とタイトルを入れる（触らなくてOK） ----------
+SLIDES.forEach((s) => {
+  const w = WORKS.find((x) => x.id === s.work);
+  if (!w) return;
+  if (!s.image) s.image = w.image || "";
+  // 文字は「カテゴリ — タイトル」。スマホでは、カテゴリとタイトルが上下に分かれて並ぶ（style.css の .cap-*）
+  if (!s.caption) s.caption = `<span class="cap-cat">${w.category}</span><span class="cap-sep"> — </span><span class="cap-title">${w.title.replace(/\n/g, " ")}</span>`;
+  if (!s.bg) s.bg = "linear-gradient(135deg, #1a1a2e, #0f3460)";
+});
 
 // ---------- ここから下は表示用の共通処理（触らなくてOK） ----------
 // カード1枚分のHTMLを作る（クリックで詳細ページへ）
 function cardHTML(w) {
+  // imagePos：サムネイルで見せる位置（例 "center bottom" = 下の方）。省略すると中央
   const thumb = w.image
-    ? `<img src="${w.image}" alt="${w.title}">`
+    ? `<img src="${w.image}" alt="${w.title.replace(/\n/g, " ")}"${w.imagePos ? ` style="object-position:${w.imagePos}"` : ""}>`
     : `<div class="ph-${w.ph}"></div>`;
   return `
     <a href="work.html?id=${w.id}" class="work-card">

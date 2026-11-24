@@ -174,6 +174,8 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   transition: border-color 0.3s;
 }
 .more-link:hover { border-color: var(--text); }
+/* 作品の下の「All works」：中央に置いて、大きくする */
+.more-link-bottom { display: block; width: fit-content; margin: 64px auto 0; font-size: 1.1rem; }
 
 /* ---------- 作品グリッド（2列） ---------- */
 .works-grid {
@@ -185,6 +187,7 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   aspect-ratio: 16 / 9;
   overflow: hidden;
 }
+.work-thumb > img { width: 100%; height: 100%; object-fit: cover; }   /* 枠いっぱいに切り抜き（位置は imagePos で変えられる） */
 .work-thumb > * { transition: transform 0.8s ease; }
 .work-card:hover .work-thumb > * { transform: scale(1.04); }
 
@@ -466,9 +469,16 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .g-side { grid-column: 2; aspect-ratio: 3 / 2; }        /* 右：小さく2枚 */
 .g-wide { grid-column: 1 / -1; aspect-ratio: 21 / 9; }  /* 下：横長 */
 
+/* 完成カット "stack"：全部を1列に縦並び（masonry の列数を1にしたもの） */
+.gallery.masonry.stack { column-count: 1; }
+/* 完成カット "row"：全部を1列に横並び（同じ幅で、高さは各写真の比率のまま） */
+.gallery.row { display: flex; align-items: flex-start; gap: var(--g-col, var(--g-gap, 16px)); }
+.gallery.row .frame { position: static; aspect-ratio: auto; flex: 1 1 0; min-width: 0; }
+.gallery.row .frame > img { position: static; display: block; width: 100%; height: auto; }
+.gallery.row .frame > div[class^="ph-"] { position: static; aspect-ratio: 3 / 2; }
 /* 完成カット "masonry"（標準）：2列。写真は縦横そのままの比率で、枚数も自由 */
-.gallery.masonry { display: block; column-count: 2; column-gap: 16px; }
-.masonry .frame { position: static; aspect-ratio: auto; break-inside: avoid; margin-bottom: 16px; }
+.gallery.masonry { display: block; column-count: 2; column-gap: var(--g-col, var(--g-gap, 16px)); }
+.masonry .frame { position: static; aspect-ratio: auto; break-inside: avoid; margin-bottom: var(--g-gap, 16px); }
 .masonry .frame > img { position: static; display: block; width: 100%; height: auto; }
 .masonry .frame > div[class^="ph-"] { position: static; aspect-ratio: 3 / 2; }   /* 画像がないときの仮の枠 */
 
@@ -573,10 +583,10 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .tag-list a { padding: 4px 16px; display: inline-block; }
 
 /* 前後の作品へのリンク */
+/* 上段：前の作品（左）・次の作品（右）／下段：All works（中央） */
+.detail-nav-row { display: flex; justify-content: space-between; gap: 16px; }
+.detail-nav-all { display: block; margin-top: 40px; text-align: center; font-size: 1.1rem; }
 .detail-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
   margin-top: 120px;
   padding-top: 32px;
   border-top: 1px solid var(--line);
@@ -595,15 +605,29 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 }
 
 /* ---------- About：スキル一覧 ---------- */
-.skill-list { list-style: none; border-top: 1px solid var(--line); max-width: 560px; }
+/* 二段組み：左右2列（スマホでは1列） */
+.skill-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 48px;
+  max-width: 640px;
+}
+.skill-list li:nth-child(-n+2) { border-top: 1px solid var(--line); }   /* 先頭の2つの上に線 */
 .skill-list li {
   display: flex;
   justify-content: space-between;
-  padding: 16px 0;
+  padding: 9px 0;            /* 1行の高さ（大きくすると広がる） */
   border-bottom: 1px solid var(--line);
   font-size: 0.9rem;
 }
 .skill-list span { color: var(--muted); font-size: 0.8rem; }
+/* 作品詳細のクレジット：About の Skills（二段組み）の変更前と同じ、1列・ゆったりした表示 */
+.skill-list.credit-list { display: block; max-width: 560px; border-top: 1px solid var(--line); }
+.skill-list.credit-list li { padding: 16px 0; }
+.skill-list.credit-list li:nth-child(-n+2) { border-top: 0; }
+.skill-list a { transition: color 0.3s; }
+.skill-list a:hover { color: var(--accent); }
 
 .about-block { margin-bottom: 96px; }
 
@@ -689,7 +713,25 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   .profile-reverse { flex-direction: column-reverse; }  /* トップは文章が先に書いてあるので、順番を逆にして画像を上に */
   .profile-img { width: 160px; }
   .detail-photos { grid-template-columns: 1fr; }
-  .detail-nav { flex-direction: column; text-align: center; }
+  .detail-nav-row { flex-direction: column; text-align: center; }
+  /* 座布団：縦書きの文字に合わせて、左側にも縦長の黒のグラデーションを足す
+     （上下のグラデーションはそのまま。0.75 が濃さ、55% が右へどこまで暗くするか） */
+  .slide::before {
+    background:
+      linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 55%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.7) 100%);
+  }
+  /* ヒーローの文字：スマホでは縦書き（右の列がカテゴリ、その左がタイトル）。左下に置く */
+  .slide-caption {
+    writing-mode: vertical-rl;
+    max-height: 60%;          /* 長いタイトルは、この高さで次の列に折り返す */
+    letter-spacing: 0.15em;
+    line-height: 1.8;
+  }
+  .cap-cat { display: block; margin-block-end: 8px; opacity: 0.7; font-size: 0.7rem; }
+  .cap-sep { display: none; }
+  .skill-list { grid-template-columns: 1fr; }
+  .skill-list li:nth-child(2) { border-top: 0; }
 }
 
 /* ---------- トップページ：About me を大きく ----------

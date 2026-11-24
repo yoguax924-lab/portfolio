@@ -41,10 +41,8 @@ const SLIDES = [
 //                 ※ YouTubeは最初は再生ボタン付きの画像で、クリックすると読み込まれます
 //   hide        : （任意）表示しないセクションの名前の一覧。データを消さずに非表示にできます
 //                 例 hide: ["process", "tech"]
-//                 指定できる名前：description / gallery / photos / process / tech / learnings / credits
+//                 指定できる名前：description / gallery / process / tech / learnings / credits
 //                 （各セクションは、その項目を書かなければ最初から表示されません。hide はあとから一時的に隠したいとき用）
-//   photos      : 写真のパス一覧（例 "images/work01-1.jpg"）。
-//                 "" のままだと仮の枠が表示されます。枚数は自由です
 //   description : 作品の説明。改行したい所に \n を入れると段落が分かれます
 //   skills      : 使用スキル・ツールの一覧
 //   image       : 一覧に出すサムネイル画像のパス。仮のうちは ""
@@ -87,7 +85,6 @@ const WORKS = [
       ["Interactive Programming", "Yuri Takasu"],
     ],
     video: "https://youtu.be/46IEQ6L6b9c",  // ← 仮。YouTubeの普通のURLに差し替え（再生ボタンのデザイン確認用）
-    photos: ["", "", ""],
     description: "松本城プロジェクションマッピングの会場横で展示した、インタラクティブなフロアマッピング。地面に映した鯉の泳ぐ水面を人が歩き、踏むと光と波紋が広がって、鯉が泳ぎ去る。",
 
     // ----- 以下は「詳細レイアウト」用の項目（この作品だけ使用。書かなければ表示されません） -----
@@ -162,7 +159,7 @@ const WORKS = [
     id: "work-03",
     title: "mazelike\n札幌国際芸術祭クロージングイベントVJ",
     category: "VJ",
-    period: "2024.2",
+    period: "2024.02",
     client: "O.O.T.C. presents Underground Park in 札幌Sound Lab mole (SIAF2024)",
     credits: [
       ["Concept / Logo Design/ 2D Animation", "RJII"],
@@ -212,19 +209,25 @@ const WORKS = [
   },
   {
     id: "work-05",
-    title: "作品タイトル 05",
-    category: "VJ",
-    period: "2024.08",
+    title: "passing(study)\n自主展示「アートとデザイン展」",
+    category: "Installation",
+    period: "2024.04",
     client: "クライアント名",
     credits: [
       ["Direction", "YOUR NAME"],
       ["Visual", "YOUR NAME"],
     ],
-    video: "",
-    photos: ["", "", "", ""],
+    video: "https://youtu.be/WEvTFN6MC-g",
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work05-shots-1.jpg",
+      "images/work05-shots-2.jpg",
+      "images/work05-shots-3.jpg",
+      "images/work05-shots-4.jpg",
+    ],
     description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    skills: ["arduino"],
+    image: "images/work05-shots-1.jpg",   // 一覧のサムネイル
     ph: 2,
   },
   {
@@ -238,7 +241,6 @@ const WORKS = [
       ["Visual", "YOUR NAME"],
     ],
     video: "",
-    photos: ["", ""],
     description: "ここに作品の説明を書きます。",
     skills: ["TouchDesigner", "Resolume"],
     image: "",
@@ -255,7 +257,6 @@ const WORKS = [
       ["Visual", "YOUR NAME"],
     ],
     video: "",
-    photos: ["", "", ""],
     description: "ここに作品の説明を書きます。",
     skills: ["TouchDesigner", "Resolume"],
     image: "",
@@ -272,7 +273,6 @@ const WORKS = [
       ["Visual", "YOUR NAME"],
     ],
     video: "",
-    photos: ["", "", "", ""],
     description: "ここに作品の説明を書きます。",
     skills: ["TouchDesigner", "Resolume"],
     image: "",
@@ -289,7 +289,6 @@ const WORKS = [
       ["Visual", "YOUR NAME"],
     ],
     video: "",
-    photos: ["", ""],
     description: "ここに作品の説明を書きます。",
     skills: ["TouchDesigner", "Resolume"],
     image: "",
@@ -306,7 +305,6 @@ const WORKS = [
       ["Visual", "YOUR NAME"],
     ],
     video: "",
-    photos: ["", "", ""],
     description: "ここに作品の説明を書きます。",
     skills: ["TouchDesigner", "Resolume"],
     image: "",

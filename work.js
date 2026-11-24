@@ -55,17 +55,8 @@ if (index === -1) {
 
   // hide に書いたセクションは表示しない（データは残したまま非表示にできる）
   // 例 hide: ["process", "tech", "learnings"]
-  // 指定できる名前：description / gallery / photos / process / tech / learnings / credits
+  // 指定できる名前：description / gallery / process / tech / learnings / credits
   const hide = new Set(w.hide || []);
-
-  // 写真（パスが空なら仮の枠）
-  const photos = (w.photos || [])
-    .map((p, i) =>
-      p
-        ? `<img src="${p}" alt="${w.title} ${i + 1}">`
-        : `<div class="ph-${w.ph}"></div>`
-    )
-    .join("");
 
   // 説明文（\n で段落を分ける）
   const desc = (w.description || "")
@@ -106,7 +97,6 @@ if (index === -1) {
       .join("");
     gallerySection = `
     <div class="about-block">
-      <h2 class="section-title">Final Shots</h2>
       <div class="gallery${mosaic ? " mosaic" : layout === "feature" ? "" : " masonry"}">${items}</div>
     </div>`;
   }
@@ -217,17 +207,7 @@ if (index === -1) {
       <div class="detail-desc">${desc}</div>
     </div>` : ""}
 
-    ${
-      // gallery（完成カット）がある作品はそちらを表示。ない作品は従来の Photos（写真があるときだけ）
-      w.gallery
-        ? gallerySection
-        : (w.photos || []).length && !hide.has("photos")
-          ? `<div class="about-block">
-      <h2 class="section-title">Photos</h2>
-      <div class="detail-photos">${photos}</div>
-    </div>`
-          : ""
-    }
+    ${gallerySection}
     ${processSection}
     ${techSection}
     ${learningsSection}

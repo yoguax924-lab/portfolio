@@ -354,6 +354,9 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   .detail-video { width: min(100%, max(480px, calc((100vh - 340px) * 16 / 9))); }
 }
 .detail-video iframe { width: 100%; height: 100%; border: 0; }
+/* mp4・静止画を入れたとき：枠（16:9）の中に収める（切り抜かず、余白は黒） */
+.detail-video video,
+.detail-video > img { display: block; width: 100%; height: 100%; object-fit: contain; background: #111; }
 .video-empty {
   height: 100%;
   display: flex;
@@ -463,6 +466,12 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .g-side { grid-column: 2; aspect-ratio: 3 / 2; }        /* 右：小さく2枚 */
 .g-wide { grid-column: 1 / -1; aspect-ratio: 21 / 9; }  /* 下：横長 */
 
+/* 完成カット "masonry"（標準）：2列。写真は縦横そのままの比率で、枚数も自由 */
+.gallery.masonry { display: block; column-count: 2; column-gap: 16px; }
+.masonry .frame { position: static; aspect-ratio: auto; break-inside: avoid; margin-bottom: 16px; }
+.masonry .frame > img { position: static; display: block; width: 100%; height: auto; }
+.masonry .frame > div[class^="ph-"] { position: static; aspect-ratio: 3 / 2; }   /* 画像がないときの仮の枠 */
+
 /* 完成カット "mosaic"：縦長2枚（左）+ 横長2枚（右に縦積み）。
    縦長(9:16)の高さと、横長(16:9)2枚＋すき間の高さがほぼ一致するように列の幅を決めている
    （1.53 は横長の列の幅の比率。切り抜きが気になるときはここを少し変えて調整） */
@@ -543,6 +552,7 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 /* スマホ：すべて1列に */
 @media (max-width: 640px) {
   .gallery { grid-template-columns: 1fr; }
+  .gallery.masonry { column-count: 1; }
   .g-main { grid-column: 1; grid-row: auto; aspect-ratio: 3 / 2; }
   .g-side { grid-column: 1; }
   /* mosaic：スマホは、縦長2枚を横に並べ、その下に横長を1枚ずつ */

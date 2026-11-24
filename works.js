@@ -36,7 +36,7 @@ document.getElementById("works-categories").innerHTML = categories
 // （カテゴリ別セクションは非表示。「All」ボタン、または同じスキルをもう一度押すと解除）
 // URLに ?skill=名前 を付けても絞り込めます（詳細ページのスキルタグからのリンク用）
 // ==========================================================
-const skills = [...new Set(WORKS.flatMap((w) => w.skills))];
+const skills = [...new Set(WORKS.flatMap((w) => w.skills || []))];
 
 const skillNav = document.getElementById("skill-nav");
 skillNav.innerHTML =
@@ -45,7 +45,7 @@ skillNav.innerHTML =
   skills.map((s) => `<button type="button" data-skill="${s}">${s}</button>`).join("");
 
 function applySkill(skill) {
-  const list = skill ? WORKS.filter((w) => w.skills.includes(skill)) : WORKS;
+  const list = skill ? WORKS.filter((w) => (w.skills || []).includes(skill)) : WORKS;
   document.getElementById("works-all").innerHTML = list.map(cardHTML).join("");
   document.getElementById("all-title").textContent = skill ? `Skill — ${skill}` : "All";
   // 絞り込み中はカテゴリ別セクションを隠す（Type のリンクは表示したまま）

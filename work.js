@@ -16,16 +16,31 @@ if (index === -1) {
   const w = WORKS[index];
   document.title = `${w.title.replace(/\n/g, " ")} | ${SITE.name}`; // サイト名は site.js の name
 
-  // 映像：最初は自分のデザインの再生ボタン付き画像だけを見せて、
-  // クリックされたらYouTube/Vimeoの動画を読み込む（再生前にYouTubeのロゴ等を出さないため）。
-  // URLがなければ準備中の枠。
+  // ---------- 画面トップのメディア（works-data.js の video） ----------
+  // video に書いたURL・パスの種類で、表示を自動で切り替える：
+  //   YouTube / Vimeo のURL      → 再生ボタン付きの画像 → クリックで動画（再生前にYouTubeのロゴ等を出さない）
+  //   .mp4 / .webm などのファイル → <video>（再生ボタン付き）
+  //   .jpg / .png / .webp など    → 静止画
+  //   空 ""                       → 「coming soon」の枠
   // YouTubeは普通のURL（watch?v=... や youtu.be/...）でも埋め込み用URLでもOK。
   // 動画IDを取り出して、埋め込み用URL（embed）に自動で直す
   const youtubeId = (url) => (url.match(/(?:embed\/|v=|youtu\.be\/|shorts\/)([\w-]{11})/) || [])[1];
-  const ytId = w.video ? youtubeId(w.video) : null;
+  const heroKind = !w.video
+    ? "none"
+    : /\.(mp4|webm|mov)(\?.*)?$/i.test(w.video)
+      ? "file"
+      : /\.(jpe?g|png|webp|gif|avif|svg)(\?.*)?$/i.test(w.video)
+        ? "image"
+        : "embed";
+  const ytId = heroKind === "embed" ? youtubeId(w.video) : null;
   const embedUrl = ytId ? `https://www.youtube.com/embed/${ytId}` : w.video;
   let video = `<div class="video-empty">Video — coming soon</div>`;
-  if (w.video) {
+  if (heroKind === "file") {
+    // mp4など：poster があれば再生前の画像にする
+    video = `<video src="${w.video}" ${w.poster ? `poster="${w.poster}"` : ""} controls playsinline preload="metadata"></video>`;
+  } else if (heroKind === "image") {
+    video = `<img src="${w.video}" alt="${w.title.replace(/\n/g, " ")}">`;
+  } else if (heroKind === "embed") {
     const id = ytId;
     // 再生前の画像：poster があればそれ、なければYouTubeの自動サムネイル、それも無理なら仮の色
     const poster = w.poster
@@ -38,8 +53,13 @@ if (index === -1) {
       ${poster}<span class="play-icon"></span><span class="play-label">Play</span></button>`;
   }
 
+  // hide に書いたセクションは表示しない（データは残したまま非表示にできる）
+  // 例 hide: ["process", "tech", "learnings"]
+  // 指定できる名前：description / gallery / photos / process / tech / learnings / credits
+  const hide = new Set(w.hide || []);
+
   // 写真（パスが空なら仮の枠）
-  const photos = w.photos
+  const photos = (w.photos || [])
     .map((p, i) =>
       p
         ? `<img src="${p}" alt="${w.title} ${i + 1}">`
@@ -48,13 +68,13 @@ if (index === -1) {
     .join("");
 
   // 説明文（\n で段落を分ける）
-  const desc = w.description
+  const desc = (w.description || "")
     .split("\n")
     .map((t) => `<p>${t}</p>`)
     .join("");
 
   // クレジット
-  const credits = w.credits
+  const credits = (w.credits || [])
     .map(([role, name]) => `<li>${name}<span>${role}</span></li>`)
     .join("");
 
@@ -65,29 +85,35 @@ if (index === -1) {
   const frame = (src, cls, alt) => `<div class="frame ${cls}">${mediaEl(src, alt)}</div>`;
   const lines = (t) => t.split("\n").join("<br>");   // \n で改行
 
-  // 完成カット（gallery）。並べ方は galleryLayout で選ぶ：
-  //   省略    : 1枚目=左に大きく、2・3枚目=右に小さく縦2枚、4枚目以降=その下に横長
-  //   "mosaic": 縦長2枚（1・2枚目）を左に並べ、横長2枚（3・4枚目）を右に縦に積む（縦横混在用）
+  // 完成カット（gallery）。枚数は自由。並べ方は galleryLayout で選ぶ：
+  //   省略 / "masonry": 2列で、写真を縦横そのままの比率で並べる（何枚でも・縦横混在でもOK）
+  //   "mosaic"        : 縦長2枚（1・2枚目）を左に並べ、横長2枚（3・4枚目）を右に縦に積む（ちょうど4枚用）
+  //   "feature"       : 1枚目=左に大きく、2・3枚目=右に小さく縦2枚、4枚目以降=その下に横長
   let gallerySection = "";
-  if (w.gallery) {
-    const mosaic = w.galleryLayout === "mosaic";
+  if (w.gallery && !hide.has("gallery")) {
+    const layout = w.galleryLayout || "masonry";
+    const mosaic = layout === "mosaic";
     const roles = mosaic ? ["g-p g-p1", "g-p g-p2", "g-l g-l1", "g-l g-l2"] : [];
     const items = w.gallery
       .map((src, i) => {
-        const role = roles[i] || (mosaic ? "g-l" : i === 0 ? "g-main" : i <= 2 ? "g-side" : "g-wide");
+        const role = mosaic
+          ? roles[i] || "g-l"
+          : layout === "feature"
+            ? i === 0 ? "g-main" : i <= 2 ? "g-side" : "g-wide"
+            : "";
         return `<div class="frame gallery-item ${role}">${mediaEl(src, `${w.title} ${i + 1}`)}</div>`;
       })
       .join("");
     gallerySection = `
     <div class="about-block">
       <h2 class="section-title">Final Shots</h2>
-      <div class="gallery${mosaic ? " mosaic" : ""}">${items}</div>
+      <div class="gallery${mosaic ? " mosaic" : layout === "feature" ? "" : " masonry"}">${items}</div>
     </div>`;
   }
 
   // 制作過程（process）：画像と「番号 + 小見出し + 説明」を左右に並べ、項目ごとに左右を入れ替える
   let processSection = "";
-  if (w.process) {
+  if (w.process && w.process.length && !hide.has("process")) {
     const items = w.process
       .map((p, i) => {
         const num = String(i + 1).padStart(2, "0");
@@ -139,7 +165,7 @@ if (index === -1) {
 
   // 技術・空間面（tech）：設置図を大きく1枚 + 説明1行、その下に写真を横並び + 説明1行
   let techSection = "";
-  if (w.tech) {
+  if (w.tech && !hide.has("tech")) {
     const t = w.tech;
     techSection = `
     <div class="about-block">
@@ -161,7 +187,7 @@ if (index === -1) {
   }
 
   // 工夫と学び（learnings）：左に細い縦線（アクセントカラー）
-  const learningsSection = w.learnings
+  const learningsSection = w.learnings && !hide.has("learnings")
     ? `
     <div class="about-block">
       <h2 class="section-title">Learnings</h2>
@@ -183,31 +209,33 @@ if (index === -1) {
       <div><dt>Period</dt><dd>${w.period}</dd></div>
       <div><dt>Client / Event</dt><dd>${w.client}</dd></div>
       ${w.role ? `<div><dt>Role</dt><dd>${w.role}</dd></div>` : ""}
-      <div><dt>Skills</dt><dd><ul class="tag-list">${w.skills.map((s) => `<li><a href="works.html?skill=${encodeURIComponent(s)}">${s}</a></li>`).join("")}</ul></dd></div>
+      ${(w.skills || []).length ? `<div><dt>Skills</dt><dd><ul class="tag-list">${w.skills.map((s) => `<li><a href="works.html?skill=${encodeURIComponent(s)}">${s}</a></li>`).join("")}</ul></dd></div>` : ""}
     </dl>
 
-    <div class="about-block">
+    ${w.description && !hide.has("description") ? `<div class="about-block">
       <h2 class="section-title">Description</h2>
       <div class="detail-desc">${desc}</div>
-    </div>
+    </div>` : ""}
 
     ${
-      // gallery（完成カット）がある作品はそちらを表示。ない作品は従来の Photos
+      // gallery（完成カット）がある作品はそちらを表示。ない作品は従来の Photos（写真があるときだけ）
       w.gallery
         ? gallerySection
-        : `<div class="about-block">
+        : (w.photos || []).length && !hide.has("photos")
+          ? `<div class="about-block">
       <h2 class="section-title">Photos</h2>
       <div class="detail-photos">${photos}</div>
     </div>`
+          : ""
     }
     ${processSection}
     ${techSection}
     ${learningsSection}
 
-    <div class="about-block">
+    ${(w.credits || []).length && !hide.has("credits") ? `<div class="about-block">
       <h2 class="section-title">Credits</h2>
       <ul class="skill-list">${credits}</ul>
-    </div>
+    </div>` : ""}
 
     <nav class="detail-nav">
       ${prev ? `<a href="work.html?id=${prev.id}">← ${prev.title.replace(/\n/g, " ")}</a>` : `<span></span>`}

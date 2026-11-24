@@ -30,13 +30,19 @@ const SLIDES = [
 //   client      : クライアント / イベント名（詳細ページでは「Client / Event」と表示。なければ "Personal Work" など）
 //   role        : （任意）担当範囲。書くと Client の右に「Role」として表示。書かなければ表示されません
 //   credits     : クレジット。[ ["役割", "名前"], ... ] の形で並べる
-//   video       : 映像の埋め込みURL。なければ ""（「準備中」の枠が出ます）
-//                 YouTube → ブラウザのアドレスバーのURLをそのまま貼ればOK
-//                           例 "https://www.youtube.com/watch?v=動画ID" / "https://youtu.be/動画ID"
-//                 Vimeo   → "https://player.vimeo.com/video/動画ID"
+//   video       : 画面トップに出すメディア。書いたURL・パスの種類で表示が自動で切り替わります
+//                 YouTube  → "https://www.youtube.com/watch?v=動画ID" / "https://youtu.be/動画ID"（アドレスバーのURLをそのまま貼ればOK）
+//                 Vimeo    → "https://player.vimeo.com/video/動画ID"
+//                 mp4など  → "videos/work-XX-main.mp4"（.mp4 / .webm。再生ボタン付きの動画）
+//                 静止画   → "images/work-XX-main.jpg"（.jpg / .png / .webp など）
+//                 なし     → ""（「coming soon」の枠が出ます）
 //   poster      : （任意）動画を再生する前に見せる画像のパス。
-//                 省略すると、YouTubeの自動サムネイルが使われます
-//                 ※ 動画は最初は再生ボタン付きの画像で、クリックすると読み込まれます
+//                 YouTubeは省略すると自動サムネイル、mp4は省略すると最初のコマ（ブラウザ次第）
+//                 ※ YouTubeは最初は再生ボタン付きの画像で、クリックすると読み込まれます
+//   hide        : （任意）表示しないセクションの名前の一覧。データを消さずに非表示にできます
+//                 例 hide: ["process", "tech"]
+//                 指定できる名前：description / gallery / photos / process / tech / learnings / credits
+//                 （各セクションは、その項目を書かなければ最初から表示されません。hide はあとから一時的に隠したいとき用）
 //   photos      : 写真のパス一覧（例 "images/work01-1.jpg"）。
 //                 "" のままだと仮の枠が表示されます。枚数は自由です
 //   description : 作品の説明。改行したい所に \n を入れると段落が分かれます
@@ -45,6 +51,29 @@ const SLIDES = [
 //                 ※ ファイル名の付け方は images/README.txt の命名規則を参照
 //                   サムネイル → images/{id}-thumb.jpg   写真 → images/{id}-01.jpg
 //   ph          : 仮サムネイルの色（1〜3）。image を入れたら無視されます
+//
+// ----------------------------------------------------------
+// 【テンプレート】work-01 をコピーして作ります。必要な項目だけ残してください。
+//
+//  ● 必ず要るもの : id / title / category / period / client / image / ph
+//  ● あとは全部「任意」。書かなければ、そのセクションは表示されません。
+//
+//  ● 完成カット（gallery）   写真は何枚でもOK（縦横混在もOK）。並べ方は galleryLayout で選ぶ
+//        galleryLayout を省略 / "masonry" : 2列。縦横そのままの比率で並ぶ（標準・何枚でも）
+//        "mosaic"  : 縦長2枚を左・横長2枚を右に積む（ちょうど4枚。並び順は 縦,縦,横,横）
+//        "feature" : 1枚目を左に大きく、2・3枚目を右に小さく縦2枚、4枚目以降を下に横長
+//  ● 制作過程（process）     項目数は自由（3〜5がおすすめ）。1項目のメディアは次のどれか1つ
+//        image: "画像"                            … 静止画1枚
+//        video: "動画.mp4", poster: "画像"        … 音なしループの動画
+//        compare: { before: "画像", after: "画像" } … Before/After
+//        slides: [ "画像", "画像", ... ]           … クリックでページ送り（枚数は自由。
+//                                                    { src: "画像", note: "注釈" } で注釈も付けられる）
+//  ● 技術・空間面（tech）     diagram（設置図）だけでも、photos / photosCaption を足してもOK
+//  ● 工夫と学び（learnings）  文章（\n で改行）
+//
+//  ● 項目を使わないとき : その行を消す、またはコメントにする。
+//    一時的に隠したいだけなら hide: ["process", "tech", "learnings"] のように書く。
+// ----------------------------------------------------------
 // ==========================================================
 const WORKS = [
   {
@@ -53,7 +82,6 @@ const WORKS = [
     category: "Projection Mapping",
     period: "2025.12",
     client: "「国宝 松本城天守 プロジェクションマッピング 2024-2025」",
-    role: "メイン開発",
     credits: [
       ["Interactive Programming", "Daisuke Funato"],
       ["Interactive Programming", "Yuri Takasu"],
@@ -106,53 +134,80 @@ const WORKS = [
   },
   {
     id: "work-02",
-    title: "作品タイトル 02",
+    title: "密会\nclub party",
     category: "VJ",
     period: "2025.11",
-    client: "クライアント名",
+    client: "主催イベント",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Host/VJ", "yuri Takasu"],
+      ["Host/PA", "haruto Ono"],
+      ["Host", "shuto Kimura"],
     ],
-    video: "",
-    photos: ["", "", "", ""],
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "https://youtu.be/TFOIYgORErk?list=PLjZIZmVuXysXZB9AJ3JKTG2-aMRLnZyIy",
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work02-shots-4.jpg",   // 横長
+      "images/work02-shots-3.jpg",   // 縦長
+      "images/work02-shots-2.jpg",   // 横長
+      "images/work02-shots-1.jpg",   // 横長
+      "images/work02-shots-5.jpg",
+    ],
+    description: "札幌市立大学有志によるパーティーを主催。学内中心。外でもやった。VJDJ。",
+    learnings: "イベント運営について",
+    skills: ["TouchDesigner"],
+    image: "images/work02-shots-5.jpg",
     ph: 2,
   },
   {
     id: "work-03",
-    title: "作品タイトル 03",
-    category: "Installation",
-    period: "2025.10",
-    client: "Personal Work",
+    title: "mazelike\n札幌国際芸術祭クロージングイベントVJ",
+    category: "VJ",
+    period: "2024.2",
+    client: "O.O.T.C. presents Underground Park in 札幌Sound Lab mole (SIAF2024)",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Concept / Logo Design/ 2D Animation", "RJII"],
+      ["Concept / 3D Scenography / Development", "simiz"],
+      ["3D Scenography / Development", "yuri Takasu"],
     ],
-    video: "",
-    photos: ["", ""],
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "images/work03-main.jpg",   // 静止画（動画の代わりに画像を表示）
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work03-shots-1.jpg",
+      "images/work03-shots-2.jpg",
+      "images/work03-shots-3.jpg",
+      "images/work03-shots-4.jpg",
+      "images/work03-shots-5.jpg",
+      "images/work03-shots-6.jpg",
+      "images/work03-shots-7.jpg",
+    ],
+    description: "3Dアクションゲームをベースとし、空間内のキャラクターをゲームコントローラーで操作するVJ表現作品。空間内には音に反応し大きさを変えるオブジェクトや、キャラクターが登ることができるオブジェクトなど様々な目を引くオブジェクトが存在し、その中をキャラクター操作を通して鑑賞、画面上に出力する。アクションゲームという身近なメディアを介することでゲームの展開や文脈を想起し、友達のゲームプレイを見ているときのように「見入る」ことに繋がる。従来のVJ表現のように音楽との同時性・対話性を保ちながら「見入る」映像を出力することで、音楽と映像の関係性を再考させる。",
+    skills: ["Unity", "C#"],
+    image: "images/work03-main.jpg",
     ph: 3,
   },
   {
     id: "work-04",
-    title: "作品タイトル 04",
-    category: "Projection Mapping",
-    period: "2025.09",
-    client: "クライアント名",
+    title: "微環\n自主展示「北の美大展（仮）」本郷新記念札幌彫刻美術館",
+    category: "Installation",
+    period: "2025.02",
+    client: "北の美大展（仮）",
     credits: [
-      ["Direction", "YOUR NAME"],
-      ["Visual", "YOUR NAME"],
+      ["Concept / Development", "yuri TAKASU"],
+      ["Concept / Sound", "Rico Iwai"],
+      ["flyer", "minato Hayasi"],
     ],
-    video: "",
-    photos: ["", "", ""],
-    description: "ここに作品の説明を書きます。",
-    skills: ["TouchDesigner", "Resolume"],
-    image: "",
+    video: "images/work04-main.JPG",   // 静止画（動画の代わりに画像を表示）
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work04-shots-7.JPG",
+      "images/work04-shots-4.JPG",
+      "images/work04-shots-5.JPG",
+      "images/work04-shots-6.JPG",
+      "images/work04-shots-2.JPG",
+    ],
+    description: "自然環境の中で形を変化させ続ける水の循環を有機的なものとして捉え、各状態の水を録音。それを独自のシステムにより、人の可聴領域外に変換し、パラメトリック・スピーカーから線的な水音を生成。水槽にサウンドビームを送ることで、水面に帰す。それは、線的な音響として空間に存在し、空間に水音の微弱な跳ね返りと循環を生む。サウンドビームによって発生した瀬を、スクリーンに投影することで、人の耳には聞こえない音の存在を漂わせる。",
+    skills: ["Arduino"],
+    image: "images/work04-main.JPG",
     ph: 1,
   },
   {

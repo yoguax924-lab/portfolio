@@ -190,6 +190,9 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .work-thumb > img { width: 100%; height: 100%; object-fit: cover; }   /* 枠いっぱいに切り抜き（位置は imagePos で変えられる） */
 .work-thumb > * { transition: transform 0.8s ease; }
 .work-card:hover .work-thumb > * { transform: scale(1.04); }
+/* 作品ごとの拡大（imageZoom → --z）。ホバー時はそこからさらに少し拡大 */
+.work-thumb > img { transform: scale(var(--z, 1)); }
+.work-card:hover .work-thumb > img { transform: scale(calc(var(--z, 1) * 1.04)); }
 
 .work-title { margin-top: 16px; font-size: 0.95rem; letter-spacing: 0.15em; }
 .work-meta  { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.15em; }

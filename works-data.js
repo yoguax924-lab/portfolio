@@ -342,7 +342,7 @@ const WORKS = [
   {
     id: "work-10",
     title: "square pop",
-    category: "Video",
+    category: "Graphics",
     period: "2023.06",
     client: "study",
     credits: [
@@ -381,6 +381,53 @@ const WORKS = [
     image: "images/work11-main.jpg",   // 一覧のサムネイル
     ph: 2,
   },
+  {
+    id: "work-12",
+    title: "wave clock",
+    category: "Graphics",
+    period: "2026.01",
+    client: "自主制作",
+    credits: [
+      ["Development", "Yuri TAKASU"],
+    ],
+    video: "videos/work-12-main.mp4",
+    // 完成カット：galleryLayout: "stack" = 全部を1列に縦並び
+    galleryLayout: "stack",
+    gallery: [
+      "images/work-12-shots-1.png",
+      "images/work-12-shots-2.png",
+      "images/work-12-shots-3.png",
+      "images/work-12-shots-4.png",
+    ],
+    description: "ジェネラティブアート的なグラフィックの習作。線を徐々に回転させたり伸び縮みさせて奥行きのある画を作る。変化はランダムに行われるので実行するごとに結果が変わる。破綻せずバリエーションの出せる変数の設定を学んだ。",
+    skills: ["Processing"],
+    image: "images/work-12-shots-5.png",   // 一覧のサムネイル
+    imageZoom: 1.2,                         // サムネイルを中央基準で拡大（1.2倍）。省略 = 等倍
+    ph: 3,
+  },
+  {
+    id: "work-13",
+    title: "北大短歌第十二号　表紙デザイン\n北海道大学短歌会機関紙",
+    category: "Graphics",
+    period: "2025.06",
+    client: "北海道大学短歌会",
+    credits: [
+      ["Publisher", "北海道大学短歌会"],
+      ["Printing", "ちょ古っ都製本工房"],
+      ["Editor", "Miyu Osaki"],
+      ["Cover Design", "Yuri TAKASU"],
+    ],
+    video: "",   // メインはまだ無いので空（「coming soon」の枠が出ます）
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work-13-shots-1.jpg",
+      "images/work-13-shots-2.png",
+    ],
+    description: "北海道大学短歌会の発行する機関誌『北大短歌』十二号の表紙デザイン。本号のテーマである「記号」にちなみ、直線と斜線だけで組み立てた幾何学的なレタリングを採用。文字を部品に分解して重ね、読める・読めないの境目にある模様のような画面をつくった。",
+    skills: ["Illustrator"],
+    image: "images/work-13-shots-1.jpg",   // 一覧のサムネイル
+    ph: 1,
+  },
 ];
 
 // ---------- スライドに、作品の画像とタイトルを入れる（触らなくてOK） ----------
@@ -397,8 +444,9 @@ SLIDES.forEach((s) => {
 // カード1枚分のHTMLを作る（クリックで詳細ページへ）
 function cardHTML(w) {
   // imagePos：サムネイルで見せる位置（例 "center bottom" = 下の方）。省略すると中央
+  // imageZoom：サムネイルを中央を基準に拡大する倍率（例 1.2 = 1.2倍）。省略すると等倍
   const thumb = w.image
-    ? `<img src="${w.image}" alt="${w.title.replace(/\n/g, " ")}"${w.imagePos ? ` style="object-position:${w.imagePos}"` : ""}>`
+    ? `<img src="${w.image}" alt="${w.title.replace(/\n/g, " ")}"${w.imagePos || w.imageZoom ? ` style="${w.imagePos ? `object-position:${w.imagePos};` : ""}${w.imageZoom ? `--z:${w.imageZoom}` : ""}"` : ""}>`
     : `<div class="ph-${w.ph}"></div>`;
   return `
     <a href="work.html?id=${w.id}" class="work-card">

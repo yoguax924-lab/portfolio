@@ -137,12 +137,15 @@ const WORKS = [
     id: "work-02",
     title: "密会\nclub party",
     category: "VJ",
-    period: "2025.11",
+    period: "2025.4~",
     client: "主催イベント",
     credits: [
-      ["Host/VJ", "Yuri TAKASU"],
-      ["Host/PA", "Haruto Ono"],
+      ["Host / VJ / Flyer", "Yuri TAKASU"],
+      ["Host / PA / Flyer", "Haruto Ono"],
       ["Host", "Shuto Kimura"],
+      ["Flyer", "Minato Hayashi"],
+      ["Flyer", "Ako"],
+      ["Flyer", "Asa"],
     ],
     video: "https://youtu.be/TFOIYgORErk?list=PLjZIZmVuXysXZB9AJ3JKTG2-aMRLnZyIy",
     // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
@@ -153,8 +156,13 @@ const WORKS = [
       "images/work02-shots-1.jpg",   // 横長
       "images/work02-shots-5.jpg",
     ],
-    description: "札幌市立大学有志によるパーティーを主催。学内中心。外でもやった。VJDJ。",
-    learnings: "イベント運営について",
+    // 完成カットの下に、正方形のグリッドで並べる（PCは4列）
+    galleryGrid: [
+      "images/p1.jpg", "images/p2.jpg", "images/p3.jpg", "images/p4.jpg",
+      "images/p5.jpg", "images/p6.jpg", "images/p7.jpg", "images/p8.jpg",
+    ],
+    description: "札幌市立大学軽音サークルから派生したクラブパーティー系イベント。DJ・VJを中心に有志の学生がパフォーマンスを行い、お互いのクリエイティビティを刺激する交流の場。\n作ったものを自由に発表する場を作りたいと思い友人と立ち上げ、学年やカテゴリーの垣根なしに周囲を巻き込んでいった。卒業後も引き継がれ活発に活動している。\n継続的に開催され、2026年11月現在では第8回。\n主に大学キャンパス内シアタールームで開催。外部での活動実績は「密会 ACT5.0 at Event Space EDiT」「北の美大展（仮）」。",
+    learnings: "人を集める、場所の確保、広報、設営など本来の目的である作品発表以外のことがイベントには必要であるということとその大変さを身をもって学んだ。同時に色々な人と協力して一つの舞台を作り上げることの感動も味わった。私が卒業した今も在学生が引き継いで楽しんでくれていることも嬉しい。",
     skills: ["TouchDesigner", "Blender"],
     image: "images/work02-shots-5.jpg",
     ph: 2,
@@ -417,7 +425,7 @@ const WORKS = [
       ["Editor", "Miyu Osaki"],
       ["Cover Design", "Yuri TAKASU"],
     ],
-    video: "",   // メインはまだ無いので空（「coming soon」の枠が出ます）
+    video: "images/work-13-main.jpg",   // 静止画（動画の代わりに画像を表示）
     // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
     gallery: [
       "images/work-13-shots-1.jpg",
@@ -425,7 +433,7 @@ const WORKS = [
     ],
     description: "北海道大学短歌会の発行する機関誌『北大短歌』十二号の表紙デザイン。本号のテーマである「記号」にちなみ、直線と斜線だけで組み立てた幾何学的なレタリングを採用。文字を部品に分解して重ね、読める・読めないの境目にある模様のような画面をつくった。",
     skills: ["Illustrator"],
-    image: "images/work-13-shots-1.jpg",   // 一覧のサムネイル
+    image: "images/work-13-main.jpg",   // 一覧のサムネイル
     ph: 1,
   },
 ];

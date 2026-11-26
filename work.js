@@ -99,6 +99,9 @@ if (index === -1) {
     gallerySection = `
     <div class="about-block">
       <div class="gallery${mosaic ? " mosaic" : layout === "feature" ? "" : layout === "row" ? " row" : layout === "stack" ? " masonry stack" : " masonry"}"${w.galleryWidth || w.galleryGap || w.galleryColGap ? ` style="${w.galleryWidth ? `max-width:${w.galleryWidth};margin-left:auto;margin-right:auto;` : ""}${w.galleryGap ? `--g-gap:${w.galleryGap};` : ""}${w.galleryColGap ? `--g-col:${w.galleryColGap}` : ""}"` : ""}>${items}</div>
+      ${w.galleryGrid ? `<div class="gallery-grid">${w.galleryGrid
+        .map((src, i) => `<div class="gallery-item">${mediaEl(src, `${w.title.replace(/\n/g, " ")} grid ${i + 1}`)}</div>`)
+        .join("")}</div>` : ""}
     </div>`;
   }
 

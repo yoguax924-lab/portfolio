@@ -477,6 +477,16 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .gallery-grid .gallery-item { aspect-ratio: 1 / 1; overflow: hidden; }
 .gallery-grid .gallery-item > * { display: block; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 640px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
+/* 動画＋写真の組（mediaPairs）：上に動画（幅いっぱい）、下に写真を2枚ずつ横並び */
+.media-pairs { display: grid; gap: 64px; }   /* 組と組の間隔（上から順に並ぶ） */
+.media-pair { display: grid; gap: 16px; min-width: 0; }
+.media-pair-title { font-size: 1.2rem; font-weight: 400; letter-spacing: 0.15em; }
+.media-pair-text { font-size: 0.85rem; line-height: 2; color: var(--muted); }
+.media-pair video { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #111; }
+.media-pair-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.media-pair-photos:empty { display: none; }
+.media-pair-photos img { display: block; width: 100%; height: auto; }
+@media (max-width: 640px) { .media-pair, .media-pair-photos { gap: 8px; } }
 /* 完成カット "stack"：全部を1列に縦並び（masonry の列数を1にしたもの） */
 .gallery.masonry.stack { column-count: 1; }
 /* 完成カット "row"：全部を1列に横並び（同じ幅で、高さは各写真の比率のまま） */

@@ -147,10 +147,11 @@ const WORKS = [
       ["Flyer", "Ako"],
       ["Flyer", "Asa"],
     ],
-    video: "https://youtu.be/TFOIYgORErk?list=PLjZIZmVuXysXZB9AJ3JKTG2-aMRLnZyIy",
+    video: "images/work02-shots-5.jpg",   // 静止画（サムネイルと同じ）
+    // 元のYouTube（戻すときは video に入れる）：https://youtu.be/TFOIYgORErk?list=PLjZIZmVuXysXZB9AJ3JKTG2-aMRLnZyIy
     // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
     gallery: [
-      "images/work02-shots-4.jpg",   // 横長
+      "images/work02-shots-4.png",
       "images/work02-shots-3.jpg",   // 縦長
       "images/work02-shots-2.jpg",   // 横長
       "images/work02-shots-1.jpg",   // 横長
@@ -160,6 +161,16 @@ const WORKS = [
     galleryGrid: [
       "images/p1.jpg", "images/p2.jpg", "images/p3.jpg", "images/p4.jpg",
       "images/p5.jpg", "images/p6.jpg", "images/p7.jpg", "images/p8.jpg",
+    ],
+    // 上に動画、下に写真2枚を横並び。上から順に表示。images は省略・空でもOK
+    // 各まとまりの小見出し（書かなければ出ません）
+    mediaPairsTitle: "VJ Works",   // 動画の組
+    galleryTitle: "Event",          // 会場の写真
+    galleryGridTitle: "Flyers",     // グリッド
+    // title = 組の名前 / text = 動画の説明（空なら出ません）
+    mediaPairs: [
+      { title: "GL", text: "", video: "videos/work02-gl.mp4", images: ["images/work02-gl-1.jpg", "images/work02-gl-2.jpg"] },
+      { title: "Face", text: "", video: "videos/work02-face.mp4", images: ["images/work02-face-1.png", "images/work02-face-2.png"] },
     ],
     description: "札幌市立大学軽音サークルから派生したクラブパーティー系イベント。DJ・VJを中心に有志の学生がパフォーマンスを行い、お互いのクリエイティビティを刺激する交流の場。\n作ったものを自由に発表する場を作りたいと思い友人と立ち上げ、学年やカテゴリーの垣根なしに周囲を巻き込んでいった。卒業後も引き継がれ活発に活動している。\n継続的に開催され、2026年11月現在では第8回。\n主に大学キャンパス内シアタールームで開催。外部での活動実績は「密会 ACT5.0 at Event Space EDiT」「北の美大展（仮）」。",
     learnings: "人を集める、場所の確保、広報、設営など本来の目的である作品発表以外のことがイベントには必要であるということとその大変さを身をもって学んだ。同時に色々な人と協力して一つの舞台を作り上げることの感動も味わった。私が卒業した今も在学生が引き継いで楽しんでくれていることも嬉しい。",
@@ -324,7 +335,7 @@ const WORKS = [
   },
   {
     id: "work-09",
-    title: "タイトル\nART INTERFACE KOTONI 2026",
+    title: "き（こ）え る 声\nART INTERFACE KOTONI 2026",
     category: "Installation",
     period: "2026.01",
     client: "ART INTERFACE KOTONI 2026",
@@ -342,7 +353,7 @@ const WORKS = [
       "images/work09-shots-1.jpg",
       "images/work09-shots-2.jpg",
     ],
-    description: "ここに作品の説明を書きます。",
+    description: "ぼやけた文字で詩が転写されている布の裏からぶつ切りの声が聞こえる作品。\nあなたにきこえる私の声は私のほんの一部。なにもきこえなくてもいいし、はっきりきこえていてもいい。どうでもいいけど、私のほんの一部。大切な一部。\n布：全長5m　音声：パラメトリックスピーカー",
     image: "images/work09-main.jpeg",   // 一覧のサムネイル
     imagePos: "center bottom",          // サムネイルで見せる位置（下の方）。省略 = 中央
     ph: 3,
@@ -435,6 +446,26 @@ const WORKS = [
     skills: ["Illustrator"],
     image: "images/work-13-main.jpg",   // 一覧のサムネイル
     ph: 1,
+  },
+  {
+    id: "work-14",
+    title: "dot camera",
+    category: "Graphics",
+    period: "2023.07",
+    client: "study",
+    credits: [
+      ["Development", "Yuri TAKASU"],
+    ],
+    video: "videos/work-14-main.mp4",
+    // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
+    gallery: [
+      "images/work-14-shots-1.jpg",
+      "images/work-14-shots-2.jpg",
+    ],
+    description: "カメラ映像をドットに置き換えるプログラム。",
+    skills: ["Processing"],
+    image: "images/work-14-shots-1.jpg",   // 一覧のサムネイル
+    ph: 2,
   },
 ];
 

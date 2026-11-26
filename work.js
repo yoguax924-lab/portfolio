@@ -81,6 +81,9 @@ if (index === -1) {
   //   省略 / "masonry": 2列で、写真を縦横そのままの比率で並べる（何枚でも・縦横混在でもOK）
   //   "mosaic"        : 縦長2枚（1・2枚目）を左に並べ、横長2枚（3・4枚目）を右に縦に積む（ちょうど4枚用）
   //   "feature"       : 1枚目=左に大きく、2・3枚目=右に小さく縦2枚、4枚目以降=その下に横長
+  // 小見出し（works-data.js に書いたときだけ表示）
+  const heading = (t) => (t ? `<h2 class="section-title">${t}</h2>` : "");
+
   let gallerySection = "";
   if (w.gallery && !hide.has("gallery")) {
     const layout = w.galleryLayout || "masonry";
@@ -98,10 +101,8 @@ if (index === -1) {
       .join("");
     gallerySection = `
     <div class="about-block">
+      ${heading(w.galleryTitle)}
       <div class="gallery${mosaic ? " mosaic" : layout === "feature" ? "" : layout === "row" ? " row" : layout === "stack" ? " masonry stack" : " masonry"}"${w.galleryWidth || w.galleryGap || w.galleryColGap ? ` style="${w.galleryWidth ? `max-width:${w.galleryWidth};margin-left:auto;margin-right:auto;` : ""}${w.galleryGap ? `--g-gap:${w.galleryGap};` : ""}${w.galleryColGap ? `--g-col:${w.galleryColGap}` : ""}"` : ""}>${items}</div>
-      ${w.galleryGrid ? `<div class="gallery-grid">${w.galleryGrid
-        .map((src, i) => `<div class="gallery-item">${mediaEl(src, `${w.title.replace(/\n/g, " ")} grid ${i + 1}`)}</div>`)
-        .join("")}</div>` : ""}
     </div>`;
   }
 
@@ -189,6 +190,29 @@ if (index === -1) {
     </div>`
     : "";
 
+  // 動画＋写真の組（mediaPairs）：完成カットより前に表示
+  const pairsSection = (w.mediaPairs || []).length ? `
+    <div class="about-block">
+      ${heading(w.mediaPairsTitle)}
+      <div class="media-pairs">${w.mediaPairs.map((p, i) => `<div class="media-pair">
+        ${p.title ? `<h3 class="media-pair-title">${p.title}</h3>` : ""}
+        <video src="${p.video}" ${p.poster ? `poster="${p.poster}"` : ""} controls playsinline preload="metadata"></video>
+        ${p.text ? `<p class="media-pair-text">${lines(p.text)}</p>` : ""}
+        <div class="media-pair-photos">${(p.images || [])
+          .map((src, n) => mediaEl(src, `${w.title.replace(/\n/g, " ")} ${i + 1}-${n + 1}`))
+          .join("")}</div>
+      </div>`).join("")}</div>
+    </div>` : "";
+
+  // 正方形のグリッド（galleryGrid）：完成カットの後に表示
+  const gridSection = (w.galleryGrid || []).length ? `
+    <div class="about-block">
+      ${heading(w.galleryGridTitle)}
+      <div class="gallery-grid">${w.galleryGrid
+        .map((src, i) => `<div class="gallery-item">${mediaEl(src, `${w.title.replace(/\n/g, " ")} grid ${i + 1}`)}</div>`)
+        .join("")}</div>
+    </div>` : "";
+
   // 前後の作品へのリンク
   const prev = WORKS[index - 1];
   const next = WORKS[index + 1];
@@ -211,7 +235,9 @@ if (index === -1) {
       <div class="detail-desc">${desc}</div>
     </div>` : ""}
 
+    ${pairsSection}
     ${gallerySection}
+    ${gridSection}
     ${processSection}
     ${techSection}
     ${learningsSection}

@@ -661,6 +661,13 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .profile-reverse { justify-content: space-between; }  /* トップ用：文章が左、画像が右 */
 .profile-text { flex: 1; }
 .profile-text p { max-width: 560px; }
+/* About me の名前（大きさは font-size で調整） */
+.profile-name { display: block; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.6em; }
+/* 大学・主な展示等 */
+.profile-heading { font-size: 0.85rem; font-weight: 700; margin: 2em 0 0.5em; opacity: 0.6; }
+.profile-history { list-style: none; padding: 0; }
+.profile-history li { display: flex; gap: 20px; }
+.profile-history span { flex: none; }   /* 年の部分 */
 /* トップ用：文章を写真側へ広げる（もっと伸ばすなら数字を増やす） */
 .profile-reverse .profile-text p { max-width: 760px; }
 

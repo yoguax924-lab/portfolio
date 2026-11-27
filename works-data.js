@@ -169,8 +169,8 @@ const WORKS = [
     galleryGridTitle: "Flyers",     // グリッド
     // title = 組の名前 / text = 動画の説明（空なら出ません）
     mediaPairs: [
-      { title: "GL", text: "", video: "videos/work02-gl.mp4", images: ["images/work02-gl-1.jpg", "images/work02-gl-2.jpg"] },
-      { title: "Face", text: "", video: "videos/work02-face.mp4", images: ["images/work02-face-1.png", "images/work02-face-2.png"] },
+      { title: "波紋コントロール", text: "", video: "videos/work02-gl.mp4", images: ["images/work02-gl-1.jpg", "images/work02-gl-2.jpg"] },
+      { title: "顔モデルコントロール", text: "", video: "videos/work02-face.mp4", images: ["images/work02-face-1.png", "images/work02-face-2.png"] },
     ],
     description: "札幌市立大学軽音サークルから派生したクラブパーティー系イベント。DJ・VJを中心に有志の学生がパフォーマンスを行い、お互いのクリエイティビティを刺激する交流の場。\n作ったものを自由に発表する場を作りたいと思い友人と立ち上げ、学年やカテゴリーの垣根なしに周囲を巻き込んでいった。卒業後も引き継がれ活発に活動している。\n継続的に開催され、2026年11月現在では第8回。\n主に大学キャンパス内シアタールームで開催。外部での活動実績は「密会 ACT5.0 at Event Space EDiT」「北の美大展（仮）」。",
     learnings: "人を集める、場所の確保、広報、設営など本来の目的である作品発表以外のことがイベントには必要であるということとその大変さを身をもって学んだ。同時に色々な人と協力して一つの舞台を作り上げることの感動も味わった。私が卒業した今も在学生が引き継いで楽しんでくれていることも嬉しい。",

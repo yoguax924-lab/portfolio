@@ -110,7 +110,7 @@ const WORKS = [
     process: [
       { title: "人の位置を取り出し、鯉の反応を確かめる", text: "Kinectの入力から映像の生成まで、TouchDesigner内で完結。\n人のシルエットを取り出し、Pythonスクリプトで中心の座標を取得している。\n鯉が近づくと泳ぎ去る動きを見ながら、反応する距離を調整した。", video: "videos/work-01-process-1.mp4", poster: "images/work-01-process-1.jpg" },
       // video を書くと mp4 を音なし・ループで自動再生します（image の代わりに書く）。poster は読み込み前に見せる画像（省略可）
-      { title: "水面と鯉の映像をつくる",     text: "揺れる水面の光と泳ぐ鯉を、TouchDesigner内でリアルタイムに生成。\n人が踏んだ位置から光とパーティクル、波紋が広がり、鯉が泳ぎ去る。", video: "videos/work-01-process-2.mp4", poster: "images/work-01-process-2.png" },
+      { title: "水面と鯉の映像をつくる",     text: "揺れる水面の光と泳ぐ鯉を、TouchDesigner内でリアルタイムに生成。\n人が踏んだ位置から光とパーティクル、波紋が広がり、鯉が泳ぎ去る。", image: "images/work-01-process-2.png" },
       // slides を書くと、クリックでページ送りするスライドカードになります（枚数は自由。画像の代わりに書く）
       { title: "現地でのパラメーター調整用UI",   text: "設営の際に調整が必要になるパラメーターをあらかじめUIで操作可能にしておいた。\n様々な状況に柔軟に対応できる汎用設計。", slides: [
         { src: "images/work-01-process-3-1.jpg", note: "投影した形の調整用(PJ二台分割まで対応)" },   // note = 画像に重ねて出す注釈（省略可）
@@ -273,7 +273,7 @@ const WORKS = [
       "images/work06-shots-1.jpg",
       "images/work06-shots-2.jpg",
     ],
-    description: "自主展示「アートとデザイン展」のinstagram広報用に作成したARフィルター。フライヤーを撮影すると文字が浮かび上がり、中心へ吸い込まれていくアニメーションが再生される。",
+    description: "自主展示「アートとデザイン展」のinstagram広報用に作成したARフィルター。フライヤーを撮影すると文字が浮かび上がり、中心へ吸い込まれていくアニメーションが再生される。\nBlenderでFBXデータを作成し、Meta Spark Studioで実装。",
     skills: ["Blender"],
     image: "images/work06-main.jpg",
     ph: 3,

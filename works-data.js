@@ -13,6 +13,8 @@ const SLIDES = [
   { work: "work-02" },
   { work: "work-03" },
   { work: "work-04" },
+  { work: "work-09" },   // き（こ）える声
+  { work: "work-12" },   // wave clock
 ];
 
 // ==========================================================

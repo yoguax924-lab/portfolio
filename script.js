@@ -12,8 +12,8 @@ onScroll();
 // .slide を一定間隔で切り替えます（フェードはCSS側で設定）
 // ==========================================================
 
-// 切り替え間隔（ミリ秒）。5000 = 5秒
-const INTERVAL = 5000;
+// 切り替え間隔（ミリ秒）。3500 = 3.5秒
+const INTERVAL = 3500;
 
 // スライドを SLIDES（works-data.js）から作る。画像があれば画像、なければ仮の背景
 const hero = document.querySelector(".hero");

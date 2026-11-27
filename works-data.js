@@ -129,7 +129,7 @@ const WORKS = [
 
     // 工夫と学び：2〜3行の文章（\n で改行）。左にアクセントカラーの縦線が付きます
     learnings: "インタラクティブな作品は、画面で見た動きよりも、実際に体験したときの手応えが大切になる。また現場では、設営の段階で細かい調整が欠かせない。それらを現場で実現できるように、調整用のUIを含めたシステムを設計した。体験する人と、現場で動かす人の両方を想像して仕組みをつくることの大切さを学んだ。",
-    skills: ["TouchDesigner", "python"],
+    skills: ["TouchDesigner", "Python"],
     image: "images/slide-01.jpg",
     ph: 1,
   },
@@ -174,7 +174,7 @@ const WORKS = [
     ],
     description: "札幌市立大学軽音サークルから派生したクラブパーティー系イベント。DJ・VJを中心に有志の学生がパフォーマンスを行い、お互いのクリエイティビティを刺激する交流の場。\n作ったものを自由に発表する場を作りたいと思い友人と立ち上げ、学年やカテゴリーの垣根なしに周囲を巻き込んでいった。卒業後も引き継がれ活発に活動している。\n継続的に開催され、2026年11月現在では第8回。\n主に大学キャンパス内シアタールームで開催。外部での活動実績は「密会 ACT5.0 at Event Space EDiT」「北の美大展（仮）」。",
     learnings: "人を集める、場所の確保、広報、設営など本来の目的である作品発表以外のことがイベントには必要であるということとその大変さを身をもって学んだ。同時に色々な人と協力して一つの舞台を作り上げることの感動も味わった。私が卒業した今も在学生が引き継いで楽しんでくれていることも嬉しい。",
-    skills: ["TouchDesigner", "Blender"],
+    skills: ["TouchDesigner", "Blender", "Python"],
     image: "images/work02-shots-5.jpg",
     ph: 2,
   },
@@ -219,7 +219,7 @@ const WORKS = [
     video: "images/work04-main.JPG",   // 静止画（動画の代わりに画像を表示）
     // 完成カット：galleryLayout を書かない = 2列で縦横そのままの比率に並ぶ（何枚でもOK）
     gallery: [
-      "images/work04-shots-7.JPG",
+      "images/work04-shots-7.jpg",
       "images/work04-shots-4.JPG",
       "images/work04-shots-5.JPG",
       "images/work04-shots-6.JPG",

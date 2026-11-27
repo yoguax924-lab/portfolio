@@ -766,3 +766,8 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 @media (max-width: 640px) {
   .profile-reverse .profile-img { width: 200px; }   /* スマホでは小さめに戻す */
 }
+
+/* スマホの作品タイトル：1行に収まりやすいように、少し小さく・字間を詰める */
+@media (max-width: 640px) {
+  .detail-title { font-size: 1.4rem; letter-spacing: 0.18em; }
+}

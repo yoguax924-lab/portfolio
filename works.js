@@ -65,6 +65,7 @@ skillNav.addEventListener("click", (e) => {
   const s = b.dataset.skill || null;           // All は空 → null（解除）
   currentSkill = currentSkill === s ? null : s;  // 同じものを押したら解除
   applySkill(currentSkill);
+  window.scrollTo({ top: 0, behavior: "instant" }); // 絞り込んだら一覧の先頭にすぐ戻す
 });
 
 // 絞り込み中に Type のリンクを押したら、絞り込みを解除してからそのセクションへ移動する

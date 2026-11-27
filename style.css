@@ -53,7 +53,7 @@ img { max-width: 100%; display: block; }
 
 .site-nav { display: flex; gap: 32px; }
 .site-nav a {
-  font-size: 0.8rem;
+  font-size: 0.95rem;        /* Works / About me の文字の大きさ（PC） */
   letter-spacing: 0.2em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -232,15 +232,14 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 #home-works .work-title { font-size: 1.35rem; }
 #home-works .work-meta  { font-size: 0.95rem; }
 
-/* 見出しの横にリンクを置く行（左：見出し／右：リンク） */
+/* 見出しとリンク（上段：見出し／下段の中央：リンク） */
 .section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  display: grid;
+  row-gap: 16px;            /* 見出しとリンクの間隔 */
   margin-bottom: 32px;
 }
 .section-head .section-title { margin-bottom: 0; }
-.section-head .more-link { margin-top: 0; }
+.section-head .more-link { margin-top: 0; justify-self: center; }
 
 /* ---------- Works：レイアウト（上：Skill固定 / 左：Type固定 / 右：一覧） ---------- */
 :root { --skillbar-h: 56px; }                /* 上に固定する Skill バーの高さ */
@@ -278,6 +277,10 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 .skill-nav button:hover,
 .tag-list a:hover,
 .skill-nav button.active { color: var(--text); border-color: var(--text); }
+/* Works の Skill バーは少し明るく（文字の色と枠の色。数字が大きいほど明るい） */
+.skill-nav button, .skill-nav .skill-label { color: #c4c4c4; }
+.skill-nav button { border-color: #4a4a4a; }
+.skill-nav button:hover, .skill-nav button.active { color: var(--text); border-color: var(--text); }
 
 /* 左：Type のサイドバー + 右：一覧 */
 .works-layout { display: grid; grid-template-columns: 170px 1fr; gap: 56px; align-items: start; }

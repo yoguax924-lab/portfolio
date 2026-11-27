@@ -76,7 +76,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1.5s ease;   /* フェードの速さ */
+  transition: opacity 2.2s ease-in-out;   /* フェードの速さ */
   display: flex;
   align-items: flex-end;
   padding: 0 40px 60px;
@@ -605,7 +605,9 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
 
 /* 前後の作品へのリンク */
 /* 上段：前の作品（左）・次の作品（右）／下段：All works（中央） */
-.detail-nav-row { display: flex; justify-content: space-between; gap: 16px; }
+/* 左半分に前の作品、右半分に次の作品。長いタイトルは中央で折り返す */
+.detail-nav-row { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; align-items: start; }
+.detail-nav-row > :last-child { text-align: right; }
 .detail-nav-all { display: block; margin-top: 40px; text-align: center; font-size: 1.1rem; }
 .detail-nav {
   margin-top: 120px;
@@ -741,7 +743,7 @@ html { scroll-behavior: smooth; }  /* クリック時になめらかに移動 */
   .profile-reverse { flex-direction: column-reverse; }  /* トップは文章が先に書いてあるので、順番を逆にして画像を上に */
   .profile-img { width: 160px; }
   .detail-photos { grid-template-columns: 1fr; }
-  .detail-nav-row { flex-direction: column; text-align: center; }
+  .detail-nav-row { column-gap: 20px; }
   /* 座布団：縦書きの文字に合わせて、左側にも縦長の黒のグラデーションを足す
      （上下のグラデーションはそのまま。0.75 が濃さ、55% が右へどこまで暗くするか） */
   .slide::before {

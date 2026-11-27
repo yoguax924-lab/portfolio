@@ -310,32 +310,6 @@ const WORKS = [
     ph: 1,
   },
   {
-    id: "work-08",
-    title: "まるでそれは爆弾のように",
-    category: "Video",
-    period: "2022.10",
-    client: "自主制作",
-    credits: [
-      ["Edit / Cast", "Yuri TAKASU"],
-      ["Cast", "Teppei Kikuchi"],
-      ["Cast", "Sakura Narimatsu"],
-      ["Cast", "Satomi Hara"],
-    ],
-    video: "https://youtu.be/w0vCLYe57Ds",
-    // 完成カット：galleryLayout: "stack" = 全部を1列に縦並び
-    galleryLayout: "stack",
-    gallery: [
-      "images/work08-shots-1.png",
-      "images/work08-shots-2.png",
-      "images/work08-shots-3.png",
-      "images/work08-shots-4.png",
-    ],
-    description: "演劇部にて撮影した架空の映画予告。爆発の合成にこだわった。",
-    skills: ["Premiere Pro", "After Effects"],
-    image: "images/work08-shots-1.png",   // 一覧のサムネイル
-    ph: 2,
-  },
-  {
     id: "work-09",
     title: "き（こ）え る 声\nART INTERFACE KOTONI 2026",
     category: "Installation",
@@ -467,6 +441,32 @@ const WORKS = [
     description: "カメラ映像をドットに置き換えるプログラム。",
     skills: ["Processing"],
     image: "images/work-14-shots-1.jpg",   // 一覧のサムネイル
+    ph: 2,
+  },
+  {
+    id: "work-08",
+    title: "まるでそれは爆弾のように",
+    category: "Video",
+    period: "2022.10",
+    client: "自主制作",
+    credits: [
+      ["Edit / Cast", "Yuri TAKASU"],
+      ["Cast", "Teppei Kikuchi"],
+      ["Cast", "Sakura Narimatsu"],
+      ["Cast", "Satomi Hara"],
+    ],
+    video: "https://youtu.be/w0vCLYe57Ds",
+    // 完成カット：galleryLayout: "stack" = 全部を1列に縦並び
+    galleryLayout: "stack",
+    gallery: [
+      "images/work08-shots-1.png",
+      "images/work08-shots-2.png",
+      "images/work08-shots-3.png",
+      "images/work08-shots-4.png",
+    ],
+    description: "演劇部にて撮影した架空の映画予告。爆発の合成にこだわった。",
+    skills: ["Premiere Pro", "After Effects"],
+    image: "images/work08-shots-1.png",   // 一覧のサムネイル
     ph: 2,
   },
 ];
